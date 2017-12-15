@@ -1,0 +1,24 @@
+export const LOGIN_USER_START ='LOGIN_USER_START';
+export const LOGIN_USER_SUCCESS='LOGIN_USER_SUCCESS';
+export const LOGIN_USER_FAIL='LOGIN_USER_FAIL';
+export const LOGIN_FACEBOOK_START ='LOGIN_FACEBOOK_START';
+export const LOGIN_FACEBOOK_SUCCESS ='LOGIN_FACEBOOK_SUCCESS';
+export const LOGIN_FACEBOOK_FAIL ='LOGIN_FACEBOOK_FAIL';
+
+export const REGISTER_USER_START='REGISTER_USER'; // types che permette di dare il via
+                                                  // alla registrazione di un utente
+
+export const REGISTER_USER_FAIL ='REGISTER_USER_FAIL'; // Registrazione fallita .
+export const REGISTER_USER_SUCCESS='REGISTER_USER_SUCCESS'; // Registrazione avvenuta con successo
+export const ADD_EXPERIENCE='ADD_EXPERIENCE';
+export const ADD_EXPERIENCE_SUCCESS='ADD_EXPERIENCE_SUCCESS';
+export const FORGET_PASSWORD_SUCCESS='FORGET_PASSWORD_SUCCESS';
+export const FORGET_PASSWORD_FAIL='FORGET_PASSWORD_FAIL';
+
+
+
+export const LOGOUT_USER_START ='LOGOUT_USER_START';
+export const LOGOUT_USER_SUCCESS='LOGOUT_USER_SUCCESS';
+export const LOGOUT_USER_FAIL='LOGOUT_USER_FAIL';
+export const ADD_IN_CART_SUCCESS ='ADD_IN_CART_SUCCESS';
+export const FETCH_ACTIVITY_SUCCESS ='FETCH_ACTIVITY_SUCCESS';
