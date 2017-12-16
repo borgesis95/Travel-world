@@ -23,7 +23,7 @@ export default class AppFooter extends Component {
     return (
 
         <Footer style={styles.wrapper}>
-          <FooterTab style={styles.wrapper}>
+          <FooterTab >
 
             <Button vertical onPress={() => goBack()}  >
               <Icon name="md-arrow-round-back"  style={styles.icons} />
@@ -46,7 +46,7 @@ export default class AppFooter extends Component {
               <Text style={styles.text} >Add</Text>
             </Button>
 
-            <Button vertical>
+            <Button vertical onPress={() => navigate('experienceCart')  } >
               <Icon name="md-cart" style={styles.icons} />
               <Text style={styles.text}>Cart</Text>
             </Button>

@@ -92,9 +92,7 @@ export default class HomePage extends Component {
               <HomeBody navigate={navigate} />
 
           </Drawer>
-
-          <AppFooter  navigate={navigate} goBack= {goBack} />
-
+          
         </Container>
       );
     }

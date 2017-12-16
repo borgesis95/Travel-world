@@ -67,6 +67,7 @@ export default class ProfileScreen extends Component {
     }else
     {
       return (
+
         <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
 
           <Drawer
@@ -75,19 +76,17 @@ export default class ProfileScreen extends Component {
 
 
           >
-
             <AppHeader
               openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
-            
+
             />
 
             <ProfileScreenBody navigate={navigate} />
 
           </Drawer>
 
-          <AppFooter  navigate={navigate} goBack= {goBack} />
-
         </Container>
+        
       );
     }
 

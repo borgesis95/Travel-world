@@ -213,8 +213,8 @@ UpdatePhotoURL(uid,downloadURL)
 
 
     return (
-    <Container>
-     <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={ 5 } >
+
+<Container>
 
        <LinearGradient  colors={['#56CCF2','#2F80ED']}    style={{ height:'100%' , width: '100%'}} >
 
@@ -249,6 +249,7 @@ UpdatePhotoURL(uid,downloadURL)
 
 
            <Row size={75} style= {{bottom: 10}}>
+
              <Col style={{  justifyContent: 'center'}}>
 
                 <Item >
@@ -273,8 +274,8 @@ UpdatePhotoURL(uid,downloadURL)
 
        </LinearGradient>
 
-     </KeyboardAvoidingView >
-    </Container>
+</Container>
+
 
     );
   }

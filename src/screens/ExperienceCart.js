@@ -57,57 +57,117 @@ import { NavigationActions } from 'react-navigation';
   render()
   {
   const { navigate, goBack } = this.props.navigation;
-  if(this.props.load)
-  {
-    return(
 
 
-<Container>
-  <Drawer
-     ref={(ref) => { this.drawer = ref; } }
-     content={ <Sidebar navigate={navigate} reset={()=> this.func()} /> }
-     onClose={() =>{ this.closeDrawer() } /* alla chiusura della sidebar, invoco closeDrawer*/}
-     onOpen={() =>{  this.openDrawer() }  /* all'apertura della sidebar, invoco closeDrawer*/}
-   >
 
-    <AppHeader
-       openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
-       closeDrawer={ () => this.closeDrawer()  /* Passo la funzione closeDrawer()  al componente  AppHeader del file appHeader.js*/ }
-    />
+      if(Platform.OS === 'ios')
+      {
+        if(this.props.load)
+        {
+          return(
 
-            <Content>
-              <LinearGradient
-                               colors={['#56CCF2','#2F80ED']}
-                               style={{ height:'100%'}}
-                    >
-               {
-                 this.props.obj.map((item,index)=>
-                  {
-                    return(
-                        <CardDetail
-                          key={index}
-                          keyNumber={item.ActivityKey}
-                          nameActivity={item.nameActivity}
-                          data={item.dateActivity}
-                          type={item.type}
-                        />
-                    );
-                  }) // end map
-               }
-            </LinearGradient>
-          </Content>
-    </Drawer>
-  </Container>
-);
-}// end if
-  else
-  {
-    return(
-      <Container>
-          <Spinner></Spinner>
-      </Container>
-    );
-  }
+            <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
+
+                <AppHeader
+                   openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
+                />
+
+                <Content>
+                  <LinearGradient
+                    colors={['#56CCF2','#2F80ED']}
+                    style={{ height:'100%'}}
+                  >
+                    {
+                      this.props.obj.map((item,index)=>
+                      {
+                        return(
+                          <CardDetail
+                            key={index}
+                            keyNumber={item.ActivityKey}
+                            nameActivity={item.nameActivity}
+                            data={item.dateActivity}
+                            type={item.type}
+                          />
+                        );
+                      }) // end map
+                    }
+                  </LinearGradient>
+                </Content>
+
+              <AppFooter  navigate={navigate} goBack= {goBack} />
+
+            </Container>
+
+          );
+        }// end if
+        else
+        {
+          return(
+            <Container>
+                <Spinner></Spinner>
+            </Container>
+          );
+        }
+
+      }else
+      {
+        if(this.props.load)
+        {
+          return(
+
+            <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
+              <Drawer
+                ref={(ref) => { this.drawer = ref; } }
+                content={ <Sidebar navigate={navigate} reset={()=> this.func()} /> }
+              >
+
+                <AppHeader
+                   openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
+                />
+
+                <Content>
+                  <LinearGradient
+                    colors={['#56CCF2','#2F80ED']}
+                    style={{ height:'100%'}}
+                  >
+                    {
+                      this.props.obj.map((item,index)=>
+                      {
+                        return(
+                          <CardDetail
+                            key={index}
+                            keyNumber={item.ActivityKey}
+                            nameActivity={item.nameActivity}
+                            data={item.dateActivity}
+                            type={item.type}
+                          />
+                        );
+                      }) // end map
+                    }
+                  </LinearGradient>
+                </Content>
+              </Drawer>
+
+              
+
+            </Container>
+
+          );
+        }// end if
+        else
+        {
+          return(
+            <Container>
+                <Spinner></Spinner>
+            </Container>
+          );
+        }
+      }
+
+
+
+
+
   }//end render
 } // End Component
 

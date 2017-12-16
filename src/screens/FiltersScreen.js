@@ -83,7 +83,7 @@ export default class CityScreen extends Component {
 
           </Drawer>
 
-          <AppFooter  navigate={navigate} goBack= {goBack} />
+          
 
         </Container>
       );

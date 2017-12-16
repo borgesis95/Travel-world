@@ -56,7 +56,7 @@ class Sidebar extends Component {
   //Il metodo si occupa di eseguire il logout una volta premuto il corrispondente bottone nella sidebar
   Logout(){
      AsyncStorage.clear();
-    
+
       this.props.actions.logoutUserStart();
 
                                                                         //Inizio logout
