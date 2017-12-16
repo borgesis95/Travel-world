@@ -30,6 +30,11 @@ export default class AppFooter extends Component {
               <Text style={styles.text}>Back</Text>
             </Button>
 
+            <Button vertical onPress={() => navigate('ProfileScreen')}  >
+              <Icon name="ios-person" style={styles.icons} />
+              <Text style={styles.text}>Profile</Text>
+            </Button>
+
             <Button vertical onPress={() => navigate('homepage')}  >
               <Icon name="ios-home" style={styles.icons} />
               <Text style={styles.text}>Home</Text>
@@ -67,7 +72,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2
   },
   text: {
-    fontSize: 11,
+    fontSize: 9,
     color:'white'
   },
   icons: {

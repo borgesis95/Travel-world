@@ -72,13 +72,13 @@ class HomeBody extends Component {
 
                   renderItem={ ({item}) =>
                      <TouchableOpacity  activeOpacity={0.6}  onPress={() =>{ this.props.actions.citySelected(item); this.props.navigate('FiltersScreen');} }  >
-                        <Card style={{  width: 350, alignSelf: 'center', borderRadius: 10 }}>
+                        <Card style={{ alignSelf: 'center', width:'98%',borderRadius: 5 }}>
 
-                           <CardItem cardBody style={{ borderRadius: 10 }} >
-                              <Image style={{ height: 170 , flex: 1, borderTopLeftRadius: 10,  borderTopRightRadius: 10 }} source={{uri: item.image}}  />
+                           <CardItem cardBody style={{borderRadius: 5 }} >
+                              <Image style={{ height: 170, width: null, flex: 1,borderTopLeftRadius: 5,  borderTopRightRadius: 5 }} source={{uri: item.image}}  />
                            </CardItem>
 
-                           <CardItem style={{ borderRadius: 10 }}>
+                           <CardItem style={{ borderRadius: 5 }}>
                               <Text style={styles.paragraph} >{item.name}</Text>
                            </CardItem>
 
