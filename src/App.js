@@ -3,6 +3,7 @@ import  {StyleSheet ,Text, View ,StatusBar , Platform , ScrollView , AsyncStorag
  // import {Provider } from 'react-redux';// makes the redux store avaible with the connect  ;
   import appReducer from './reducers';  // appReducer is a file that combine all reducers and it's
   import { Provider } from 'react-redux';
+  import {Content} from 'native-base';
   import { createStore, applyMiddleware } from 'redux'; // allow to use createStore
                                     // include all reducers
 import {logger } from 'redux-logger'; //need to install
@@ -69,18 +70,19 @@ class App extends React.Component{
        AppState.addEventListener('change', this._handleAppStateChange.bind(this));
        this.setState({isStoreLoading: true});
        AsyncStorage.getItem('completeStore').then((value)=>{
-         if(value && value.length){                                // se in getItem c'è lo store allora lo converto in JSON
-           let initialStore = JSON.parse(value);
-           self.setState({store: createStore(appReducer, initialStore, applyMiddleware(logger,ReduxThunk))});
+         if(value && value.length)
+         {                                // se in getItem c'è lo store allora lo converto in JSON
+            let initialStore = JSON.parse(value);
+            self.setState({store: createStore(appReducer, initialStore, applyMiddleware(logger,ReduxThunk))});
          }
          else
          {
-         self.setState({store: store});                           // altrimenti carico un un nuovo store .
+            self.setState({store: store});                           // altrimenti carico un un nuovo store .
          }
       self.setState({isStoreLoading: false});
       }).catch((error)=>{
-       self.setState({store: store});
-       self.setState({isStoreLoading: false});
+            self.setState({store: store});
+            self.setState({isStoreLoading: false});
        })
 
    }
@@ -89,51 +91,40 @@ class App extends React.Component{
      Prima di distruggere l'applicazione salva lo store con AsyncStorage
    */
    componentWillUnmount() {
-   AppState.removeEventListener('change', this._handleAppStateChange.bind(this));
+
+     AppState.removeEventListener('change', this._handleAppStateChange.bind(this));
    }
 
-   _handleAppStateChange(currentAppState) {
-  //  alert("SALVA LO STORE");
-    let storingValue = JSON.stringify(this.state.store.getState())
-    AsyncStorage.setItem('completeStore', storingValue);
+  _handleAppStateChange(currentAppState) {
+     let storingValue = JSON.stringify(this.state.store.getState())
+     AsyncStorage.setItem('completeStore', storingValue);
   }
 
 
-
-// in React a middleware  is placed in the midlle between
-// action and reducer for example asynchronus API ,logging ...
 render(){
    if (!this.state.isReady)
    {
       return <Expo.AppLoading />;
     }
-    /*const store = createStore(MainReducer,
-                                   initialState,           // into intialState could be restore a previously user session
-                                   applyMiddleware(logger,ReduxThunk)
-                                   );
-         */
 
-
-  const ExperienceNavigator = StackNavigator({
-    tab1: {screen:firstPage },
-    tab2: {screen:secondPage},
-    tab3: {screen:thirdPage},
+const ExperienceNavigator = StackNavigator({
+      tab1: {screen:firstPage },
+      tab2: {screen:secondPage},
+      tab3: {screen:thirdPage},
   },
 );
-
-
 const MainNavigator = StackNavigator({
 
 
     // myhome andrà eliminato alla fine del test
 
-    // login: {screen: LoginForm},
      homepage : {screen: myHome},
      firstAdd: {screen:ExperienceNavigator},
      forgotPassword: {screen: forgotPassword},
      register: { screen:RegisterForm},
+     login: {screen: LoginForm},
      experienceCart:{screen: ExperienceCart},
-     CityScreen:  {screen: CityScreen},
+         Screen:  {screen: CityScreen},
      FiltersScreen:  {screen: FiltersScreen},
      Activity: {screen:Activity},
      tab1: {screen:firstPage },
@@ -143,6 +134,7 @@ const MainNavigator = StackNavigator({
 });
 
 const LoginNavigator = StackNavigator({
+
     login: {screen: LoginForm},
     homepage : {screen: myHome},
     firstAdd: {screen:ExperienceNavigator},
@@ -169,19 +161,14 @@ if(this.state.isStoreLoading==true){
                                       {
                                         return(
                                           <Provider store={this.state.store}>
-                                             <View style={{flex:1}}>
                                                    <MainNavigator/>
-                                             </View>
                                           </Provider>
                                         );
                                       }
                                       else {
                                         return (
-
                                           <Provider store={this.state.store}>
-                                             <View style={{flex:1}}>
                                                    <LoginNavigator/>
-                                             </View>
                                           </Provider>
                                         );
                                       }

@@ -1,6 +1,6 @@
 
 import React , {Component} from 'react';
-import  {View , Text ,StyleSheet,Image,Dimensions, } from 'react-native';
+import  {View , Text ,StyleSheet,Image,Dimensions,Keyboard,KeyboardAvoidingView } from 'react-native';
 import { Container, Header, Content, Form, Item, Input , Button ,Label,Body,Title,Icon,Left,Right,Card,CardItem,Thumbnail,Spinner } from 'native-base';
 import {loginUser,loginWithFacebook } from '../actions/AuthActions';
 import { connect } from 'react-redux';
@@ -40,12 +40,17 @@ render()
 {
 const { navigate } = this.props.navigation;
 return (
-<Content style={{ flex:1 }} scrollEnabled={false}>
-  <LinearGradient
-           colors={['#2b5876','#4e4376']}
-           style={{ height:'100%'}}
-  >
-  <Container>
+
+<Content scrollEnabled={false} style={{flex:1}}>
+<LinearGradient
+         colors={['#2b5876','#4e4376']}
+         style={{ height:'100%'}}
+>
+      <Container onPress={Keyboard.dismiss} style={{flex: 1,
+    flexDirection: 'column',
+    }}>
+
+
       <Row  style={styles.firstRow}>
         <Image
           style={{width:100,height:100}}
@@ -54,7 +59,7 @@ return (
         </Image>
       </Row>
       <Col style={styles.secondColumn}>
-        <Form style={{right:5,}}>
+        <Form style={{right:5}}>
           <Item   floatingLabel style={{width:'80%'}}>
             <Label style={{marginLeft:10,color:'white'}}> Username</Label>
             <Icon name="ios-person-outline" style={{color:'white'}} />
@@ -94,9 +99,9 @@ return (
         <Text style={styles.createAndForgot}onPress={()=>navigate('forgotPassword')}> Forgot a password?</Text>
       </Row>
 
-
 </Container>
 </LinearGradient>
+
 </Content>
 )
 }

@@ -1,6 +1,6 @@
 import React ,{Component} from 'react';
 import  {View , Text ,StyleSheet,Image,ScrollView,Dimensions } from 'react-native';
-import { Container, Header, Content, Form, Item, Input , 
+import { Container, Header, Content, Form, Item, Input ,
          Button ,Label,Body,Title,Icon,Left,Right,Card,CardItem,Thumbnail } from 'native-base';
 
 import { Col, Row, Grid } from 'react-native-easy-grid';
@@ -11,19 +11,10 @@ export default class firstPageAdd extends Component{
  render()
  {
      return(
-               <ScrollView horizontal={true}
-               > 
-               <FirstPage/>
-               <SecondPage/>
-             
-                
-               
-               
-               
-               
-                 
-                
-               </ScrollView>
+               <View>
+                 <FirstPage/>
+                 <SecondPage/>
+               </View>
 
      );
  }

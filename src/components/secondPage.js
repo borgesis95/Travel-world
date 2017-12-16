@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     label:
     {
         fontWeight:'bold',
-        color:'white',
+        color:'transparent',
         fontSize:20,
     },
     button:

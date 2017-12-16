@@ -34,15 +34,17 @@ import AppFooter from './appFooter.js';
 
 
 return(
+<Content style={{ flex:1,backgroundColor:'red' }} scrollEnabled={false}>
  <Container style={styles.container}>
     <LinearGradient
              colors={['#56CCF2','#2F80ED']}
              style={{ height:'100%'}}
     >
+
     <Grid style={{flex:1}}>
         <Row style={styles.firstRow}>
           <Form style={styles.form}>
-                <Label style={{fontWeight:'bold', color:'white',top:30}}>
+                <Label style={{fontWeight:'bold', color:'white',top:30,color:'trasparent'}}>
                    Give  name to your Experience
                 </Label>
                   <Item regular  style={styles.item}>
@@ -116,6 +118,7 @@ return(
     <AppFooter  navigate={navigate} goBack= {goBack}  />
   </LinearGradient>
 </Container>
+</Content>
   );
  }
 }
@@ -123,9 +126,9 @@ return(
 const styles =StyleSheet.create({
     container:
     {
-        backgroundColor:'#edae23',
-         height:Dimensions.get('window').height,
-         width:(Dimensions.get('window').width)
+      //  backgroundColor:'#edae23',
+        // height:Dimensions.get('window').height,
+        //  width:(Dimensions.get('window').width)
     },
 
     firstRow:

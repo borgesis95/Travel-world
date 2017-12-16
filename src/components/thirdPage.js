@@ -50,6 +50,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
     render(){
           const {navigate,goBack,state}=this.props.navigation; // to navigate into other page .
         return(
+          <Content>
             <Container>
                 <LinearGradient
                   colors={['#56CCF2','#2F80ED']}
@@ -141,6 +142,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
                     <AppFooter  navigate={navigate} goBack= {goBack}  />
                 </LinearGradient>
             </Container>
+          </Content>
         );
     }
 }

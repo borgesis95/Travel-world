@@ -56,17 +56,15 @@ class Sidebar extends Component {
   //Il metodo si occupa di eseguire il logout una volta premuto il corrispondente bottone nella sidebar
   Logout(){
      AsyncStorage.clear();
-    
+
       this.props.actions.logoutUserStart();
 
                                                                         //Inizio logout
      //Se è andato a buon fine allora invio allo store il cambio di stato invocando l'action logoutUserSuccess
      //e passo logout che è un oggetto che invoca il metodo reset() passato dalle Screen
-     firebase.auth().signOut().                                                                                   //Eseguo il logout
-      then(() => this.props.actions.logoutUserSuccess({  logout: () => this.props.reset()})
 
-      ).
-      catch((error)=> this.props.actions.logoutUserFailed(error));                                                //se il logout non va a buon fine restituisco errore
+     this.props.reset();
+
 
   }
 
