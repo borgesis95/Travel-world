@@ -63,37 +63,40 @@ export default class HomePage extends Component {
     const { navigate, goBack } = this.props.navigation;       //inserisco nella variabile navigate un riferimento allo StackNavigator di App.js
                                                              // Tale variabile sarà passata alle componenti di questa pagina (es. Sidebar)
 
+    if(Platform.OS === 'ios')
+    {
+      return (
+        <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
+
+          <AppHeader/>
+          <HomeBody navigate={navigate} />
+
+          <AppFooter  navigate={navigate} goBack= {goBack} />
+
+        </Container>
+      );
+
+    }else
+    {
+      return (
+        <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
+            <Drawer
+               ref={(ref) => { this.drawer = ref; } }
+               content={ <Sidebar navigate={navigate} reset={()=> this.func()} /> }
+            >
+
+              <AppHeader
+                 openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
+              />
+
+              <HomeBody navigate={navigate} />
+
+          </Drawer>
+          
+        </Container>
+      );
+    }
 
 
-
-    return (
-      <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
-
-
-
-          <Drawer
-             ref={(ref) => { this.drawer = ref; } }
-             content={ <Sidebar navigate={navigate} reset={()=> this.func()} /> }
-             onClose={() =>{ this.closeDrawer() } /* alla chiusura della sidebar, invoco closeDrawer*/}
-             onOpen={() =>{  this.openDrawer() }  /* all'apertura della sidebar, invoco closeDrawer*/}
-
-
-          >
-
-            <AppHeader
-               openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
-               closeDrawer={ () => this.closeDrawer()  /* Passo la funzione closeDrawer()  al componente  AppHeader del file appHeader.js*/ }
-
-
-            />
-
-            <HomeBody navigate={navigate} />
-
-        </Drawer>
-
-        <AppFooter  navigate={navigate} goBack= {goBack} />
-
-      </Container>
-    );
   }
 }

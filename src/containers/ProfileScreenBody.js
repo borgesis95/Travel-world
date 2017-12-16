@@ -213,11 +213,8 @@ UpdatePhotoURL(uid,downloadURL)
 
 
     return (
-      <Content>
-        <LinearGradient  colors={['#56CCF2','#2F80ED']}    style={{ height:'100%' , width: '100%'}} >
-    <Container style={{height:400,backgroundColor:'red'}}>
 
-
+<Container>
 
 
            <Row size={25} style={{ justifyContent:'center',  alignItems: 'center', top:20 }}>
@@ -251,6 +248,7 @@ UpdatePhotoURL(uid,downloadURL)
 
 
            <Row size={75} style= {{bottom: 10}}>
+
              <Col style={{  justifyContent: 'center'}}>
 
                 <Item >
@@ -274,11 +272,16 @@ UpdatePhotoURL(uid,downloadURL)
           </Button>
 
 
+<<<<<<< HEAD
 
 
     </Container>
   </LinearGradient>
   </Content >
+=======
+</Container>
+
+>>>>>>> 9f477981edf6bcd723f6932ab5760a3f11271a2d
 
     );
   }

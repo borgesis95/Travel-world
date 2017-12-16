@@ -15,8 +15,8 @@ class LoginForm extends Component {
   {
     super(props)
     this.state={
-      email:"",
-      password:""
+      email:"prova@gmail.com",
+      password:"123456"
     }
   }
 

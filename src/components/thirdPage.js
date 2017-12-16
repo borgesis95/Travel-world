@@ -139,7 +139,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
                     style={styles.button}>
                       <Text style={styles.text}> SUBMIT </Text>
                   </Button>
-                    <AppFooter  navigate={navigate} goBack= {goBack}  />
+                    
                 </LinearGradient>
             </Container>
           </Content>

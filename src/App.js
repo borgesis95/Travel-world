@@ -119,6 +119,7 @@ const MainNavigator = StackNavigator({
     // myhome andrà eliminato alla fine del test
 
      homepage : {screen: myHome},
+     login: {screen: LoginForm},
      firstAdd: {screen:ExperienceNavigator},
      forgotPassword: {screen: forgotPassword},
      register: { screen:RegisterForm},

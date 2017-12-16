@@ -23,11 +23,16 @@ export default class AppFooter extends Component {
     return (
 
         <Footer style={styles.wrapper}>
-          <FooterTab style={styles.wrapper}>
+          <FooterTab >
 
             <Button vertical onPress={() => goBack()}  >
               <Icon name="md-arrow-round-back"  style={styles.icons} />
               <Text style={styles.text}>Back</Text>
+            </Button>
+
+            <Button vertical onPress={() => navigate('ProfileScreen')}  >
+              <Icon name="ios-person" style={styles.icons} />
+              <Text style={styles.text}>Profile</Text>
             </Button>
 
             <Button vertical onPress={() => navigate('homepage')}  >
@@ -41,7 +46,7 @@ export default class AppFooter extends Component {
               <Text style={styles.text} >Add</Text>
             </Button>
 
-            <Button vertical>
+            <Button vertical onPress={() => navigate('experienceCart')  } >
               <Icon name="md-cart" style={styles.icons} />
               <Text style={styles.text}>Cart</Text>
             </Button>
@@ -67,7 +72,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2
   },
   text: {
-    fontSize: 11,
+    fontSize: 9,
     color:'white'
   },
   icons: {

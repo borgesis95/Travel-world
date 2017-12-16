@@ -74,7 +74,7 @@ export default class  SecondPage extends Component {
                </TouchableOpacity>
               </Row>
 
-                <AppFooter  navigate={navigate} goBack= {goBack}  />
+                
                 </LinearGradient>
                 </Container>
         );

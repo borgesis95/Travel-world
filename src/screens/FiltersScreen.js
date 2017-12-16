@@ -52,39 +52,42 @@ export default class CityScreen extends Component {
   render(){
     const {navigate,goBack}  = this.props.navigation;
 
-    return(
+    if(Platform.OS === 'ios')
+    {
+      return (
+        <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
 
-      <Container style={{width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
+          <AppHeader/>
+          <FiltersScreenBody navigate={navigate} />
+
+          <AppFooter  navigate={navigate} goBack= {goBack} />
+
+        </Container>
+      );
+
+    }else
+    {
+      return (
+        <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
+            <Drawer
+               ref={(ref) => { this.drawer = ref; } }
+               content={ <Sidebar navigate={navigate} reset={()=> this.func()} /> }
+            >
+
+              <AppHeader
+                 openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
+
+              />
+
+              <FiltersScreenBody navigate={navigate} />
+
+          </Drawer>
+
           
 
-          <Drawer
-             ref={(ref) => { this.drawer = ref; } }
-             content={ <Sidebar navigate={navigate} reset={()=> this.func()} /> }
-             onClose={() =>{ this.closeDrawer() } /* alla chiusura della sidebar, invoco closeDrawer*/}
-             onOpen={() =>{  this.openDrawer() }  /* all'apertura della sidebar, invoco closeDrawer*/}
-
-          >
-
-            <AppHeader
-               openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
-               closeDrawer={ () => this.closeDrawer()  /* Passo la funzione closeDrawer()  al componente  AppHeader del file appHeader.js*/ }
-
-
-            />
-
-            <FiltersScreenBody navigate={navigate} />
-
-        </Drawer>
-
-        <AppFooter  navigate={navigate} goBack= {goBack}  />
-
-      </Container>
-
-
-
-
-    );
-
+        </Container>
+      );
+    }
 
 
   }

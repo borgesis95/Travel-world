@@ -51,40 +51,42 @@ export default class CityScreen extends Component {
   render(){
     const {navigate,goBack}  = this.props.navigation;
 
-    return(
+    if(Platform.OS === 'ios')
+    {
+      return (
+        <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
 
-      <Container style={{width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
-          
+          <AppHeader/>
+          <CityScreenBody navigate={navigate} />
 
-          <Drawer
-             ref={(ref) => { this.drawer = ref; } }
-             content={ <Sidebar navigate={navigate} reset={()=> this.func()} /> }
-             onClose={() =>{ this.closeDrawer() } /* alla chiusura della sidebar, invoco closeDrawer*/}
-             onOpen={() =>{  this.openDrawer() }  /* all'apertura della sidebar, invoco closeDrawer*/}
+          <AppFooter  navigate={navigate} goBack= {goBack} />
 
-          >
+        </Container>
+      );
 
-            <AppHeader
-               openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
-               closeDrawer={ () => this.closeDrawer()  /* Passo la funzione closeDrawer()  al componente  AppHeader del file appHeader.js*/ }
+    }else
+    {
+      return (
+        <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
+            <Drawer
+               ref={(ref) => { this.drawer = ref; } }
+               content={ <Sidebar navigate={navigate} reset={()=> this.func()} /> }
+            >
 
+              <AppHeader
+                 openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
 
-            />
+              />
 
-            <CityScreenBody navigate={navigate} />
+              <CityScreenBody navigate={navigate} />
 
-        </Drawer>
+          </Drawer>
 
-        <AppFooter  navigate={navigate} goBack= {goBack}  />
+        
 
-      </Container>
-
-
-
-
-    );
-
-
+        </Container>
+      );
+    }
 
   }
 }

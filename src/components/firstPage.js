@@ -115,7 +115,7 @@ return(
       >
         <Label style={styles.text}>Avanti</Label>
     </Button>
-    <AppFooter  navigate={navigate} goBack= {goBack}  />
+    
   </LinearGradient>
 </Container>
 </Content>

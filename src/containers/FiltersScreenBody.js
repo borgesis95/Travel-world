@@ -23,25 +23,24 @@ class FiltersScreenBody extends Component {
       return(
         <Container>
           <LinearGradient  colors={['#56CCF2','#2F80ED']}    style={{ height:'100%' , width: '100%'}} >
-             <View style= {{ flex:1, flexDirection: 'column', justifyContent: 'space-around', }}>
+            <View style= {{ flex:1, flexDirection: 'column', justifyContent: 'space-around', }}>
+              <TouchableOpacity style={{flex:1}} activeOpacity={0.6}  onPress={() =>{ this.props.typeExperienceSelected("Food"); this.props.navigate('CityScreen');} }  >
+                <Card >
+                  <Image  style={{  height: '100%', width: '100%', borderRadius: 2, alignSelf: 'center' }} source={require('../../assets/1.png')} />
+                </Card>
+              </TouchableOpacity>
 
-               <CardItem style = {{  width: 351, height: 151 ,shadowOffset: { height: 2 }, shadowColor: 'black', shadowOpacity: 0.2,justifyContent: 'center', alignSelf: 'center',}} >
-                   <TouchableOpacity  activeOpacity={0.6}  onPress={() =>{ this.props.typeExperienceSelected("Food"); this.props.navigate('CityScreen');} }  >
-                      <Image  style={{  height: 150, width: 350, borderRadius: 2, alignSelf: 'center' }} source={require('../../assets/1.png')} />
-                   </TouchableOpacity>
-               </CardItem>
+              <TouchableOpacity style={{flex:1}} activeOpacity={0.6}  onPress={() =>{ this.props.typeExperienceSelected("Food"); this.props.navigate('CityScreen');} }  >
+                <Card>
+                  <Image  style={{  height: '100%', width: '100%', borderRadius: 2, alignSelf: 'center' }} source={require('../../assets/2.png')} />
+                </Card>
+              </TouchableOpacity>
 
-               <CardItem style = {{  width: 351, height: 151 ,shadowOffset: { height: 2 }, shadowColor: 'black', shadowOpacity: 0.2,justifyContent: 'center', alignSelf: 'center',}} >
-                   <TouchableOpacity  activeOpacity={0.6}  onPress={() =>{ this.props.typeExperienceSelected("Tourism"); this.props.navigate('CityScreen');} }  >
-                      <Image  style={{  height: 150, width: 350, borderRadius: 2, alignSelf: 'center' }} source={require('../../assets/2.png')} />
-                   </TouchableOpacity>
-               </CardItem>
-
-               <CardItem style = {{  width: 351, height: 151 ,shadowOffset: { height: 2 }, shadowColor: 'black', shadowOpacity: 0.2,justifyContent: 'center', alignSelf: 'center',}} >
-                   <TouchableOpacity  activeOpacity={0.6}  onPress={() =>{ this.props.typeExperienceSelected("Sport"); this.props.navigate('CityScreen');} }  >
-                      <Image  style={{  height: 150, width: 350, borderRadius: 2, alignSelf: 'center' }} source={require('../../assets/3.png')} />
-                   </TouchableOpacity>
-               </CardItem>
+              <TouchableOpacity style={{flex:1}}  activeOpacity={0.6}  onPress={() =>{ this.props.typeExperienceSelected("Food"); this.props.navigate('CityScreen');} }  >
+                <Card>
+                  <Image  style={{  height: '100%', width: '100%', borderRadius: 2, alignSelf: 'center' }} source={require('../../assets/3.png')} />
+                </Card>
+              </TouchableOpacity>
 
              </View>
           </LinearGradient>
