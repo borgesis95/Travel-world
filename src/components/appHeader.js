@@ -13,8 +13,8 @@ export default class appHeader extends Component {
     if(Platform.OS !== 'ios')
     {
       return(
-        <Button transparent  onPress={()=>   this.sidebar() /* Al tocco sul button invoca la funzione sidebar() */  } >
-          <Icon style={{fontSize: 24,marginLeft:16, color:'white' ,flexDirection:'row',justifyContent:'flex-start'}} name='menu' />
+        <Button transparent  onPress={()=>   this.props.navigate('DrawerOpen') /* Al tocco sul button invoca la funzione sidebar() */  } >
+          <Icon style={{fontSize: 24, color:'white' ,flexDirection:'row',justifyContent:'flex-start'}} name='menu' />
         </Button>
       );
     }
@@ -31,10 +31,7 @@ export default class appHeader extends Component {
     }
   }
 
-  sidebar = () => {                                    //funzione che gestisce l'apertura della sidebar mediante il comando dato da bottone nell'header
 
-     this.props.openDrawer();                      // La funzione openDrawer() è passata dal componente appHeader in myHome.js
- }
 
   render() {
     return (

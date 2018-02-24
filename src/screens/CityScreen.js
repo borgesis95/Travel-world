@@ -20,33 +20,6 @@ export default class CityScreen extends Component {
 
   };
 
-  //Funzione che si occupa della chiusura della sidebar e di aggiornare il suo stato (chiusa)
-  closeDrawer = () => {
-    this.drawer._root.close();          //eseguo la chiusura
-     this.setState({ flag: false });   //stato = chiusa
-  };
-
-    //Funzione che si occupa dell'apertura della sidebar e di aggiornare il suo stato (aperta)
-  openDrawer = () => {
-    this.drawer._root.open();          //eseguo l'apertura
-     this.setState({ flag: true });   //stato = aperta
-
-  };
-
-  //Reset main route with login solo se il logout invocato nella sidebar va a buon fine
-  func = () =>{
-
-    //Imposto come pagina principale login  in modo che una volta effettuato il logout non è possibile tornare indietro senza permessi
-    const resetAction = NavigationActions.reset({
-      index: 0,
-      actions: [
-        NavigationActions.navigate({ routeName: 'login'})
-      ]
-    });
-
-    //Dispatch del'action
-    this.props.navigation.dispatch(resetAction);
-  }
 
   render(){
     const {navigate,goBack}  = this.props.navigation;
@@ -68,21 +41,9 @@ export default class CityScreen extends Component {
     {
       return (
         <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
-            <Drawer
-               ref={(ref) => { this.drawer = ref; } }
-               content={ <Sidebar navigate={navigate} reset={()=> this.func()} /> }
-            >
 
-              <AppHeader
-                 openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
-
-              />
-
-              <CityScreenBody navigate={navigate} />
-
-          </Drawer>
-
-        
+          <AppHeader navigate={navigate}/>
+          <CityScreenBody navigate={navigate} />
 
         </Container>
       );

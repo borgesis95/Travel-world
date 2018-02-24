@@ -14,7 +14,7 @@ import ReduxThunk from 'redux-thunk' ; // need to install
 
 import * as firebase from 'firebase';
 
-import {StackNavigator,TabNavigator } from 'react-navigation'; // need to install
+import {StackNavigator,TabNavigator,DrawerNavigator } from 'react-navigation'; // need to install
 import LoginForm from './screens/LoginForm';
 import RegisterForm from './screens/RegisterForm';
 import myHome from './screens/myHome.js';
@@ -31,7 +31,7 @@ import firstPageAdd from './screens/firstPageAdd';
 import AddExperience from './screens/AddExperience';
 import CityScreen   from './screens/CityScreen.js'
 import FiltersScreen   from './screens/FiltersScreen.js'
-
+import Sidebar from './containers/sidebar.js';
 
 
 const initialState ={};
@@ -113,43 +113,92 @@ const ExperienceNavigator = StackNavigator({
       tab3: {screen:thirdPage},
   },
 );
+
 const MainNavigator = StackNavigator({
 
 
     // myhome andrà eliminato alla fine del test
+    homepage: {
+       screen: DrawerNavigator({
+         homepage :     {screen: myHome},
+         experienceCart:{screen: ExperienceCart},
+         CityScreen:  {screen: CityScreen},
+         FiltersScreen:  {screen: FiltersScreen},
+         ProfileScreen:  {screen: ProfileScreen },
+       },
+       {
+         drawerPosition: 'left',
+         animationEnabled: true,
+         initialRouteName:'homepage',
 
-     homepage : {screen: myHome},
+         contentComponent: Sidebar,
+
+       })
+     },
+     //homepage : {screen: myHome},
      login: {screen: LoginForm},
      firstAdd: {screen:ExperienceNavigator},
      forgotPassword: {screen: forgotPassword},
      register: { screen:RegisterForm},
      login: {screen: LoginForm},
-     experienceCart:{screen: ExperienceCart},
-         Screen:  {screen: CityScreen},
-     FiltersScreen:  {screen: FiltersScreen},
+     //experienceCart:{screen: ExperienceCart},
+     //CityScreen:  {screen: CityScreen},
+     //FiltersScreen:  {screen: FiltersScreen},
+
      Activity: {screen:Activity},
      tab1: {screen:firstPage },
      tab2: {screen:secondPage},
      tab3: {screen:thirdPage},
-     ProfileScreen:  {screen: ProfileScreen },
-});
+     //ProfileScreen:  {screen: ProfileScreen },
+
+
+   },
+   {
+     headerMode: 'none',
+   });
+
 
 const LoginNavigator = StackNavigator({
 
     login: {screen: LoginForm},
-    homepage : {screen: myHome},
-    firstAdd: {screen:ExperienceNavigator},
-    forgotPassword: {screen: forgotPassword},
-    register: { screen:RegisterForm},
-    experienceCart:{screen: ExperienceCart},
-    CityScreen:  {screen: CityScreen},
-    FiltersScreen:  {screen: FiltersScreen},
-    Activity: {screen:Activity},
-    tab1: {screen:firstPage },
-    tab2: {screen:secondPage},
-    tab3: {screen:thirdPage},
-    ProfileScreen:  {screen: ProfileScreen },
-});
+    homepage: {
+       screen: DrawerNavigator({
+         homepage :     {screen: myHome},
+         experienceCart:{screen: ExperienceCart},
+         Screen:  {screen: CityScreen},
+         FiltersScreen:  {screen: FiltersScreen},
+         ProfileScreen:  {screen: ProfileScreen },
+       },
+       {
+         drawerPosition: 'left',
+         animationEnabled: true,
+         initialRouteName:'homepage',
+
+         contentComponent: Sidebar,
+
+       })
+     },
+     //homepage : {screen: myHome},
+     firstAdd: {screen:ExperienceNavigator},
+     forgotPassword: {screen: forgotPassword},
+     register: { screen:RegisterForm},
+     //experienceCart:{screen: ExperienceCart},
+     //CityScreen:  {screen: CityScreen},
+     //FiltersScreen:  {screen: FiltersScreen},
+     Activity: {screen:Activity},
+     tab1: {screen:firstPage },
+     tab2: {screen:secondPage},
+     tab3: {screen:thirdPage},
+     //ProfileScreen:  {screen: ProfileScreen },
+
+
+   },
+   {
+     headerMode: 'none',
+   });
+
+
+
 
 
 if(this.state.isStoreLoading==true){

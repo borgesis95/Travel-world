@@ -207,8 +207,7 @@ const Item = Picker.Item;
  </Content>
 
    <Button primary style={styles.button}
-      onPress={()=>this.props.AddActions(this.state)
-      }
+      onPress={()=>this.props.AddActions(this.state) }
    >
      <Text style={{fontSize:20,color:'white'}}> Aggiungi  </Text>
    </Button>

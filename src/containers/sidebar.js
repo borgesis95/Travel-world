@@ -9,7 +9,7 @@ import {logoutUserStart, logoutUserSuccess, logoutUserFailed,} from '../actions/
 import * as firebase from 'firebase';
 import {bindActionCreators} from 'redux';
 import {userFetchStart, userFetchSuccess, userFetchFailed} from '../actions/ProfileActions.js';
-
+import { NavigationActions } from 'react-navigation';
 
 class Sidebar extends Component {
 
@@ -49,8 +49,20 @@ class Sidebar extends Component {
       if(this.props.user != null)  return this.props.user.url;
   }
 
+  //Reset main route with login solo se il logout invocato nella sidebar va a buon fine
+  reset = () =>{
 
+    //Imposto come pagina principale login  in modo che una volta effettuato il logout non è possibile tornare indietro senza permessi
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'login'})
+      ]
+    });
 
+    //Dispatch del'action
+    this.props.navigation.dispatch(resetAction);
+  }
 
 
   //Il metodo si occupa di eseguire il logout una volta premuto il corrispondente bottone nella sidebar
@@ -63,15 +75,15 @@ class Sidebar extends Component {
      //Se è andato a buon fine allora invio allo store il cambio di stato invocando l'action logoutUserSuccess
      //e passo logout che è un oggetto che invoca il metodo reset() passato dalle Screen
 
-     this.props.reset();
+     this.reset();
 
 
   }
 
   render() {
-    const navigate = this.props.navigate;  //  passo la variabile this.props.navigate da myHome.js a alla variabile navigate di questa screen
+/*    const navigate = this.props.navigate;  //  passo la variabile this.props.navigate da myHome.js a alla variabile navigate di questa screen
    //successivamente attraverso tale variabile passo da una screen all'altra specificando in quale screen andare dopo aver clccato l'apposito text (es. navigate(login))
-
+*/
     return (
 
 
@@ -82,7 +94,7 @@ class Sidebar extends Component {
                   <Text style={styles.Username}> { this.UserName() } </Text>
             </View>
 
-            <CardItem button style={{flex:1,flexDirection: 'row', backgroundColor: 'transparent', }} onPress={()=>navigate('ProfileScreen')} >
+            <CardItem button style={{flex:1,flexDirection: 'row', backgroundColor: 'transparent', }} onPress={()=>this.props.navigation.navigate('ProfileScreen')} >
                 <Icon  name="person" />
                 <Text>My Account</Text>
 
@@ -91,7 +103,7 @@ class Sidebar extends Component {
                 </Right>
             </CardItem>
 
-            <CardItem button style={{flex:1,flexDirection: 'row', backgroundColor: 'transparent'}} onPress={()=>navigate('tab1')} >
+            <CardItem button style={{flex:1,flexDirection: 'row', backgroundColor: 'transparent'}} onPress={()=>this.props.navigation.navigate('tab1')} >
                 <Icon  name="ios-add-circle-outline" />
                 <Text>Add Experience</Text>
 
@@ -100,7 +112,7 @@ class Sidebar extends Component {
                 </Right>
             </CardItem>
 
-            <CardItem button style={{flex:1,flexDirection: 'row', backgroundColor: 'transparent'}} onPress={()=>navigate('experienceCart')}>
+            <CardItem button style={{flex:1,flexDirection: 'row', backgroundColor: 'transparent'}} onPress={()=>this.props.navigation.navigate('experienceCart')}>
                 <Icon  name="paper-plane" />
                 <Text>My Experience</Text>
 

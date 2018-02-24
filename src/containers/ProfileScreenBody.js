@@ -14,7 +14,7 @@ import * as firebase from 'firebase';
 
 class ProfileScreenBody extends Component {
 
-  state = {name:"Name" , age: "Age", phone:"Phone" }
+  state = {name:"" , age: "", phone:"" }
 
   loadSpinner()
   {
@@ -165,11 +165,18 @@ UpdatePhotoURL(uid,downloadURL)
 
 
   //Metodo che si occupa della modifica dei dati dopo che l'utente preme il button (Edit)
-  UpdateProfile(){
+  async UpdateProfile(){
       this.props.actions.profileUpdateStart();                                                                                       //inizio le modifiche
 
+
+
       const { currentUser } = firebase.auth();                                                                                      //estraggo il corrente utente
-      var user = { "name": this.state.name , "age": this.state.age, "phone": this.state.phone  , "email": this.props.userAuth };    //inizzializzo l'oggetto user con i dati dell'utente
+      var user = {"name": this.state.name , "age": this.state.age, "phone": this.state.phone  , "email": this.props.userAuth};    //inizzializzo l'oggetto user con i dati dell'utente
+
+      //se il reducer contiene un valore valido ed allo stesso tempo un parametro(es. name) non è  cambiato allora riusa lo stesso parametro prendendolo dal reducer
+      if( this.props.ProfileFetch != null && this.props.ProfileFetch.name !="" && this.state.name =="") user.name=this.props.ProfileFetch.name;
+      if( this.props.ProfileFetch != null && this.props.ProfileFetch.age !="" && this.state.age =="")   user.age=this.props.ProfileFetch.age;
+      if( this.props.ProfileFetch != null && this.props.ProfileFetch.phone !="" && this.state.phone =="") user.phone=this.props.ProfileFetch.phone;
 
       firebase.database().ref(`/users/${currentUser.uid}`)                                                                          //faccio riferimento alla tabella del corrente utente (UID) presente nella tabella users di firebase
        .set({ name: user.name,  age: user.age , phone: user.phone, email: user.email, url: this.UserPhoto() })                                             //modifico i dati
@@ -183,18 +190,29 @@ UpdatePhotoURL(uid,downloadURL)
   //Se i dati estratti dal firebase sono diversi da null e diversi dal parametro di default allora restituisci il valore che sarà stampato nel componente <Text>
   UserName()
   {
-    if( this.props.ProfileFetch != null && this.props.ProfileFetch.name != "Name") return this.props.ProfileFetch.name;
+    if( this.props.ProfileFetch != null )
+    {
+
+      return this.props.ProfileFetch.name;
+    }
 
   }
 
   UserAge()
   {
-     if( this.props.ProfileFetch != null && this.props.ProfileFetch.age != "Age" ) return this.props.ProfileFetch.age;
+     if( this.props.ProfileFetch != null )
+     {
+        return this.props.ProfileFetch.age;
+     }
   }
 
   UserPhone()
   {
-     if( this.props.ProfileFetch != null && this.props.ProfileFetch.phone != "Phone") return this.props.ProfileFetch.phone;
+     if( this.props.ProfileFetch != null )
+     {
+
+        return this.props.ProfileFetch.phone;
+     }
   }
 
   UserPhoto()
@@ -215,73 +233,53 @@ UpdatePhotoURL(uid,downloadURL)
     return (
 
 <Container>
+<LinearGradient  colors={['#56CCF2','#2F80ED']}    style={{ height:'100%' , width: '100%'}} >
+           <View style={{ flex:1, flexDirection:'column', justifyContent:'center',  alignItems: 'center',  backgroundColor:'black' }}>
+
+              {this.loadSpinner()}
+
+              <View style={{flexDirection:'row', justifyContent:'space-around', alignItems: 'center', width: 110,height: 50, backgroundColor:'transparent' }}>
+                  <TouchableOpacity onPress={ ()=> this.pickImage(this.props.uid,true)  } style={{alignSelf: 'flex-end', bottom: 8, borderRadius: 5, backgroundColor: '#ecf0f1', justifyContent: 'center',alignItems: 'center', width:30,height: 30}}>
+                      <Icon  name="md-camera"  style= {{  fontSize:18 }}/>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={ ()=> this.pickImage(this.props.uid,false)  } style={{alignSelf: 'flex-end', bottom: 8, borderRadius: 5, backgroundColor: '#ecf0f1', justifyContent: 'center',alignItems: 'center', width:30,height: 30}}>
+                      <Icon  name="md-images"  style= {{  fontSize:18 }}/>
+                  </TouchableOpacity>
+              </View>
+
+           </View>
 
 
-           <Row size={25} style={{ justifyContent:'center',  alignItems: 'center', top:20 }}>
-              <Col style={{ justifyContent:'center',  alignItems: 'center' }}>
-                  <Col style={{ justifyContent:'space-around',  alignItems: 'center' }}>
-                      {this.loadSpinner()}
-
-                      <Row style={{ justifyContent:'space-around', alignItems: 'center', width: 80,height: 50 }}>
-                          <TouchableOpacity onPress={ ()=> this.pickImage(this.props.uid,true)  } style={{alignSelf: 'flex-end', bottom: 8, borderRadius: 5, backgroundColor: '#ecf0f1', justifyContent: 'center',alignItems: 'center', width:25,height: 25}}>
-                              <Icon  name="md-camera"  style= {{  fontSize:16 }}/>
-                          </TouchableOpacity>
-
-                          <TouchableOpacity onPress={ ()=> this.pickImage(this.props.uid,false)  } style={{alignSelf: 'flex-end', bottom: 8, borderRadius: 5, backgroundColor: '#ecf0f1', justifyContent: 'center',alignItems: 'center', width:25,height: 25}}>
-                              <Icon  name="md-images"  style= {{  fontSize:16 }}/>
-                          </TouchableOpacity>
-                      </Row>
-
-                  </Col>
-              </Col>
-
-              <Col style={{ height: 50 , width: 195,alignItems: 'flex-start', justifyContent: 'space-between' }}>
-
-                     <Text style={styles.paragraph}>Name: { this.UserName() } </Text>
-
-                     <Text style={styles.paragraph}>Age:     { this.UserAge() } Years </Text>
-
-                     <Text style={styles.paragraph}>Phone: { this.UserPhone() } </Text>
-
-              </Col>
-           </Row>
-
-
-           <Row size={75} style= {{bottom: 10}}>
-
-             <Col style={{  justifyContent: 'center'}}>
+           <View  style= {{flex:2, flexDirection:'column',justifyContent:'flex-start',alignItems:'center', marginTop:40}}>
 
                 <Item >
-                    <Input maxLength={21}  placeholder={this.state.name}  onChangeText={(name)=>this.setState({name})}  placeholderTextColor='black' />
+                    <Text style={styles.paragraph}>Name:  </Text>
+                    <Input maxLength={21}  placeholder={this.UserName()} onChangeText={(name)=>this.setState({name})}  placeholderTextColor='black' />
+                    <Icon style={{marginTop:5, marginRight:5, fontSize: 18}} name="md-close" onPress={()=> alert("ok")} />
                 </Item>
 
                 <Item style={{top:5}}>
-                    <Input maxLength={3} placeholder={this.state.age} onChangeText={(age)=>this.setState({age})} placeholderTextColor='black' />
+                     <Text style={styles.paragraph}>Age:     </Text>
+                     <Input maxLength={3} placeholder={this.UserAge()} keyboardType={"numeric"} onChangeText={(age)=>this.setState({age})} placeholderTextColor='black' />
+                     <Icon style={{marginTop:5, marginRight:5, fontSize: 18}} name="md-close" />
                 </Item>
 
                 <Item style={{top:5}}>
-                    <Input maxLength={10} placeholder={this.state.phone} onChangeText={(phone)=>this.setState({phone})} placeholderTextColor='black' />
+                    <Text style={styles.paragraph}>Phone: </Text>
+                    <Input maxLength={10} placeholder={this.UserPhone()} keyboardType={"numeric"} onChangeText={(phone)=>this.setState({phone})} placeholderTextColor='black' />
+                    <Icon style={{marginTop:5, marginRight:5, fontSize: 18}} name="md-close" />
                 </Item>
 
-             </Col>
-
-          </Row>
+          </View>
 
           <Button full ligh style={{backgroundColor: '#ecf0f1'}} onPress={() => this.UpdateProfile() } >
             <Text style={{fontSize: 16,fontWeight: 'bold', textAlign: 'center', color: 'black',}} >EDIT</Text>
           </Button>
-
-
-<<<<<<< HEAD
-
-
-    </Container>
-  </LinearGradient>
-  </Content >
-=======
+</LinearGradient>
 </Container>
 
->>>>>>> 9f477981edf6bcd723f6932ab5760a3f11271a2d
+
 
     );
   }
@@ -329,8 +327,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf0f1',
   },
   paragraph: {
-    marginTop:5,
-    fontSize: 14,
+
+    fontSize: 16,
+    marginLeft:10,
     fontWeight: 'bold',
     textAlign: 'center',
     color: 'black',
