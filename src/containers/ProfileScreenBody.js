@@ -217,7 +217,8 @@ UpdatePhotoURL(uid,downloadURL)
 
   UserPhoto()
   {
-     if( this.props.ProfileFetch != null )  return this.props.ProfileFetch.url;
+     if( this.props.ProfileFetch != null && this.props.ProfileFetch.url!="")  return this.props.ProfileFetch.url;
+     else return "https://mir-s3-cdn-cf.behance.net/project_modules/disp/ce54bf11889067.562541ef7cde4.png";
   }
 
 
@@ -277,8 +278,8 @@ UpdatePhotoURL(uid,downloadURL)
             <Text style={{fontSize: 16,fontWeight: 'bold', textAlign: 'center', color: 'black',}} >EDIT</Text>
           </Button>
 </LinearGradient>
-</Container>
 
+</Container>
 
 
     );

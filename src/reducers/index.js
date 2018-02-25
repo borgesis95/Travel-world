@@ -10,11 +10,12 @@ import FetchCityReducer       from './FetchCityReducer.js';
 import FetchExperienceReducer       from './FetchExperienceReducer.js';
 import ActiveTypeExperienceReducer  from './ActiveTypeExperienceReducer';
 
-import ProfileUpdateReducer from './ProfileUpdateReducer.js'
-import ProfileFetchReducer from './ProfileFetchReducer.js'
-import PhotoUpdateReducer  from './PhotoUpdateReducer.js'
-import ActivityCartReducer from './ActivityCartReducer.js'
+import ProfileUpdateReducer from './ProfileUpdateReducer.js';
+import ProfileFetchReducer from './ProfileFetchReducer.js';
+import PhotoUpdateReducer  from './PhotoUpdateReducer.js';
+import ActivityCartReducer from './ActivityCartReducer.js';
 
+import CurrentScreenReducer from './CurrentScreenReducer.js';
 
 const appReducer = combineReducers({
   auth: authReducer,
@@ -29,6 +30,7 @@ const appReducer = combineReducers({
   ProfileFetch: ProfileFetchReducer,
   PhotoUpdate:  PhotoUpdateReducer,
   ActivityCart: ActivityCartReducer ,
+  CurrentScreen: CurrentScreenReducer,
 
 });
 

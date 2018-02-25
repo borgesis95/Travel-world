@@ -13,8 +13,9 @@ import HomeBody  from '../containers/homeBody.js';
 import AppFooter from '../components/appFooter.js';
 import Sidebar from '../containers/sidebar.js';
 import { NavigationActions } from 'react-navigation';
+import {currentScreen} from '../actions/currentScreen.js';
 
- class ExperienceCart extends Component{
+class ExperienceCart extends Component{
    constructor(props)
    {
      super(props)
@@ -25,12 +26,17 @@ import { NavigationActions } from 'react-navigation';
 
    }
   static navigationOptions = {
-    header: null
+    header: null,
+    tabBarLabel:'Cart',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="ios-cart" style={{fontSize:26,color: tintColor }}/>
+    ),
   };
 
   componentDidMount()   // when the component is rendered call the fetchActivityCart to take object from database.
   {
         this.props.fetchActivityCart();
+        this.props.currentScreen("ExperienceCart");
   }
 
 
@@ -42,6 +48,7 @@ import { NavigationActions } from 'react-navigation';
 
       if(Platform.OS === 'ios')
       {
+        /*<AppFooter  navigate={navigate} goBack= {goBack} />*/
         if(this.props.load)
         {
           return(
@@ -49,7 +56,7 @@ import { NavigationActions } from 'react-navigation';
             <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
 
                 <AppHeader
-                   openDrawer= { () => this.openDrawer()   /* Passo la funzione openDrawer()  al componente  AppHeader del file appHeader.js*/  }
+                   navigate={navigate}
                 />
 
                 <Content>
@@ -74,7 +81,7 @@ import { NavigationActions } from 'react-navigation';
                   </LinearGradient>
                 </Content>
 
-              <AppFooter  navigate={navigate} goBack= {goBack} />
+
 
             </Container>
 
@@ -120,7 +127,7 @@ import { NavigationActions } from 'react-navigation';
                     }
                   </LinearGradient>
                 </Content>
-          
+
             </Container>
 
           );
@@ -160,4 +167,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps,{fetchActivityCart})(ExperienceCart);
+export default connect(mapStateToProps,{fetchActivityCart,currentScreen})(ExperienceCart);

@@ -26,13 +26,14 @@ export default class CityScreen extends Component {
 
     if(Platform.OS === 'ios')
     {
+      /*<AppFooter  navigate={navigate} goBack= {goBack} />*/
       return (
         <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
 
-          <AppHeader/>
+          <AppHeader navigate={navigate}/>
           <FiltersScreenBody navigate={navigate} />
 
-          <AppFooter  navigate={navigate} goBack= {goBack} />
+
 
         </Container>
       );
@@ -43,7 +44,7 @@ export default class CityScreen extends Component {
         <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
 
           <AppHeader navigate={navigate}/>
-          <FiltersScreenBody navigate={navigate} />  
+          <FiltersScreenBody navigate={navigate} />
 
         </Container>
       );

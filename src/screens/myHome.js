@@ -6,14 +6,13 @@ import {Drawer} from 'native-base';
 import AppHeader from '../components/appHeader.js';
 import HomeBody  from '../containers/homeBody.js';
 import AppFooter from '../components/appFooter.js';
-
+import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-
+import {currentScreen} from '../actions/currentScreen.js';
 import Sidebar from '../containers/sidebar.js';
 
 
-
-export default class HomePage extends Component {
+class HomePage extends Component {
 
 
 
@@ -22,16 +21,20 @@ export default class HomePage extends Component {
     super(props);
     console.ignoredYellowBox = [ 'Setting a timer' ];
   } // END EDIT
+
   static navigationOptions = {
-    header: null
+    header: null,
+    tabBarLabel:'Home',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="ios-home" style={{fontSize:26,color: tintColor }}/>
+    )
   };
 
-  state = {
-    flag: false,
 
-  };
-
-
+  componentDidMount()
+  {
+    this.props.currentScreen("Home");
+  }
 
   render() {
 
@@ -40,13 +43,14 @@ export default class HomePage extends Component {
 
     if(Platform.OS === 'ios')
     {
+      /*  <AppFooter  navigate={navigate} goBack= {goBack} />*/
       return (
         <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
 
-          <AppHeader/>
+          <AppHeader navigate={navigate}/>
           <HomeBody navigate={navigate} />
 
-          <AppFooter  navigate={navigate} goBack= {goBack} />
+
 
         </Container>
       );
@@ -66,3 +70,5 @@ export default class HomePage extends Component {
 
   }
 }
+
+export default connect (null, {currentScreen}) (HomePage);

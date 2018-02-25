@@ -9,10 +9,9 @@ export default class AppFooter extends Component {
   constructor() //EDIT BORGESI
   {
     super();
-    console.ignoredYellowBox = [
-'Setting a timer'
-];
+    console.ignoredYellowBox = ['Setting a timer'];
   } // END EDIT
+
 
   render() {
 
@@ -23,31 +22,31 @@ export default class AppFooter extends Component {
     return (
 
         <Footer style={styles.wrapper}>
-          <FooterTab >
+          <FooterTab style={{backgroundColor:'darkblue'}}>
 
-            <Button vertical onPress={() => goBack()}  >
+            <Button vertical onPress={() => this.props.navigation.goBack()}  >
               <Icon name="md-arrow-round-back"  style={styles.icons} />
               <Text style={styles.text}>Back</Text>
             </Button>
 
-            <Button vertical onPress={() => navigate('ProfileScreen')}  >
+            <Button vertical onPress={() => this.props.navigation.navigate('ProfileScreen')}  >
               <Icon name="ios-person" style={styles.icons} />
               <Text style={styles.text}>Profile</Text>
             </Button>
 
-            <Button vertical onPress={() => navigate('homepage')}  >
+            <Button vertical onPress={() => this.props.navigation.navigate('homepage')}  >
               <Icon name="ios-home" style={styles.icons} />
               <Text style={styles.text}>Home</Text>
             </Button>
 
 
-            <Button vertical onPress={() => navigate('tab1')  } >
-              <Icon name="md-add-circle" style={styles.icons} />
+            <Button vertical onPress={() => this.props.navigation.navigate('tab1')  } >
+              <Icon name="ios-add-circle" style={styles.icons} />
               <Text style={styles.text} >Add</Text>
             </Button>
 
-            <Button vertical onPress={() => navigate('experienceCart')  } >
-              <Icon name="md-cart" style={styles.icons} />
+            <Button vertical onPress={() => this.props.navigation.navigate('experienceCart')  } >
+              <Icon name="ios-cart" style={styles.icons} />
               <Text style={styles.text}>Cart</Text>
             </Button>
 

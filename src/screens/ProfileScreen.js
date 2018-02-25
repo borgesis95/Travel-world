@@ -9,11 +9,15 @@ import Sidebar from '../containers/sidebar.js';
 import { NavigationActions } from 'react-navigation';
 import {Drawer} from 'native-base';
 import {connect} from 'react-redux';
+import {currentScreen} from '../actions/currentScreen.js';
 
-
-export default class ProfileScreen extends Component {
+class ProfileScreen extends Component {
   static navigationOptions = {
-    header: null
+    header: null,
+    tabBarLabel:'Profile',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="ios-person" style={{fontSize:26,color: tintColor }}/>
+    ),
   };
 
   state = {
@@ -21,18 +25,23 @@ export default class ProfileScreen extends Component {
 
   };
 
+  componentDidMount()
+  {
+    this.props.currentScreen("Profile");
+  }
 
   render(){
     const {navigate,goBack}  = this.props.navigation;
 
     if(Platform.OS === 'ios')
     {
+      /*<AppFooter  navigate={navigate} goBack= {goBack} />*/
       return (
         <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
-          <AppHeader/>
+          <AppHeader navigate={navigate} />
           <ProfileScreenBody navigate={navigate} />
 
-          <AppFooter  navigate={navigate} goBack= {goBack} />
+
 
         </Container>
       );
@@ -68,3 +77,5 @@ export default class ProfileScreen extends Component {
 
   }
 }
+
+export default connect (null, {currentScreen}) (ProfileScreen);

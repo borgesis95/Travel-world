@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Text,StyleSheet , Platform,Dimensions,Image} from 'react-native';
-
+import { Text,StyleSheet , Platform,Dimensions,Image,AsyncStorage} from 'react-native';
+import { connect } from 'react-redux';
 import {Header,Left,Button,Icon,Right,Body,Title,Row,View} from 'native-base';
 import SvgUri from 'react-native-svg-uri';
+import {logoutUserStart, logoutUserSuccess, logoutUserFailed,} from '../actions/LogoutActions';
+import { NavigationActions } from 'react-navigation';
+import {bindActionCreators} from 'redux';
 
-
-export default class appHeader extends Component {
+class appHeader extends Component {
 
 
 
@@ -24,13 +26,44 @@ export default class appHeader extends Component {
     if(Platform.OS === 'ios')
     {
       return(
-        <Button transparent  onPress={()=>   alert("Premuto")  } >
-           <Icon style={{marginTop:11,fontSize: 24,marginLeft:16, color:'white' ,flexDirection:'row',justifyContent:'flex-start',color:'white'}} name="md-power"  />
+        <Button transparent  onPress={()=>   this.Logout()  } >
+           <Icon style={{marginTop:11,fontSize: 24, color:'white' ,flexDirection:'row',color:'white'}} name="md-power"  />
         </Button>
       );
     }
   }
 
+
+  //Reset main route with login solo se il logout invocato nella sidebar va a buon fine
+  reset = () =>{
+
+    //Imposto come pagina principale login  in modo che una volta effettuato il logout non è possibile tornare indietro senza permessi
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'login'})
+      ]
+    });
+
+    //Dispatch del'action
+    this.props.navigation.dispatch(resetAction);
+  }
+
+
+  //Il metodo si occupa di eseguire il logout una volta premuto il corrispondente bottone nella sidebar
+  Logout(){
+     AsyncStorage.clear();
+
+      this.props.actions.logoutUserStart();
+
+                                                                        //Inizio logout
+     //Se è andato a buon fine allora invio allo store il cambio di stato invocando l'action logoutUserSuccess
+     //e passo logout che è un oggetto che invoca il metodo reset() passato dalle Screen
+
+     this.reset();
+
+
+  }
 
 
   render() {
@@ -106,3 +139,15 @@ const styles = StyleSheet.create({
   }
 
 });
+
+function mapDispatchToProps(dispatch){
+    return {
+      actions: {
+        logoutUserStart: bindActionCreators(logoutUserStart, dispatch),
+        logoutUserSuccess: bindActionCreators(logoutUserSuccess, dispatch),
+        logoutUserFailed: bindActionCreators(logoutUserFailed, dispatch),
+        //reset: bindActionCreators(reset, dispatch),
+    }
+  };
+}
+export default connect(null, mapDispatchToProps ) (appHeader);

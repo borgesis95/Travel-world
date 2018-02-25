@@ -32,7 +32,7 @@ import AddExperience from './screens/AddExperience';
 import CityScreen   from './screens/CityScreen.js'
 import FiltersScreen   from './screens/FiltersScreen.js'
 import Sidebar from './containers/sidebar.js';
-
+import TabBar from './components/appFooter.js';
 
 const initialState ={};
 let store = createStore(appReducer,applyMiddleware(logger,ReduxThunk));
@@ -165,7 +165,7 @@ const LoginNavigator = StackNavigator({
        screen: DrawerNavigator({
          homepage :     {screen: myHome},
          experienceCart:{screen: ExperienceCart},
-         Screen:  {screen: CityScreen},
+         CityScreen:  {screen: CityScreen},
          FiltersScreen:  {screen: FiltersScreen},
          ProfileScreen:  {screen: ProfileScreen },
        },
@@ -197,32 +197,140 @@ const LoginNavigator = StackNavigator({
      headerMode: 'none',
    });
 
+   const MainNavigatorIOS = StackNavigator({
+
+                                     homepage: {
+                                       screen: TabNavigator({
+                                         ProfileScreen:  {screen: ProfileScreen },
+                                         homepage :     {screen: myHome},
+                                         experienceCart:{screen: ExperienceCart},
 
 
 
 
-if(this.state.isStoreLoading==true){
-                                       return <Text>Caricamento</Text>
-                                     }else
-                                  {  console.log("STORE",this.state.store);
-                                      console.log("STORE TUTO",this.state.store.getState());
-                                      console.log('VERO O FALSO',this.state.store.getState().auth.isLogged);
-                                      if(this.state.store.getState().auth.isLogged)
-                                      {
-                                        return(
-                                          <Provider store={this.state.store}>
-                                                   <MainNavigator/>
-                                          </Provider>
-                                        );
-                                      }
-                                      else {
-                                        return (
-                                          <Provider store={this.state.store}>
-                                                   <LoginNavigator/>
-                                          </Provider>
-                                        );
-                                      }
-                                     }
+                                       },
+                                       {
+                                         //tabBarComponent: TabBar,
+                                         tabBarPosition: 'bottom',
+                                         animationEnabled: true,
+                                         tabBarOptions: {
+                                           activeTintColor: 'white',
+                                           labelStyle: {
+                                             fontSize: 12,
+                                           },
+                                           style: {
+                                             backgroundColor: 'darkblue',
+                                           },
+
+                                         },
+                                       })
+                                     },
+                                     //homepage : {screen: myHome},
+                                     login: {screen: LoginForm},
+                                     firstAdd: {screen:ExperienceNavigator},
+                                     forgotPassword: {screen: forgotPassword},
+                                     register: { screen:RegisterForm},
+
+                                     //experienceCart:{screen: ExperienceCart},
+                                     CityScreen:  {screen: CityScreen},
+                                     FiltersScreen:  {screen: FiltersScreen},
+
+                                     Activity: {screen:Activity},
+                                     tab1: {screen:firstPage },
+                                     tab2: {screen:secondPage},
+                                     tab3: {screen:thirdPage},
+                                     //ProfileScreen:  {screen: ProfileScreen },
+
+           });
+
+           const LoginNavigatorIOS = StackNavigator({
+                                     login: {screen: LoginForm},
+                                     homepage: {
+                                       screen: TabNavigator({
+                                         ProfileScreen:  {screen: ProfileScreen },
+                                         homepage :     {screen: myHome},
+                                         experienceCart:{screen: ExperienceCart},
+                                       },
+                                       {
+                                         //tabBarComponent: TabBar,
+                                         tabBarPosition: 'bottom',
+                                         animationEnabled: true,
+                                         tabBarOptions: {
+                                           activeTintColor: 'white',
+                                           labelStyle: {
+                                             fontSize: 12,
+                                           },
+                                           style: {
+                                             backgroundColor: 'darkblue',
+                                           },
+
+                                         },
+                                       })
+                                     },
+                                     //homepage : {screen: myHome},
+                                     firstAdd: {screen:ExperienceNavigator},
+                                     forgotPassword: {screen: forgotPassword},
+                                     register: { screen:RegisterForm},
+                                     //experienceCart:{screen: ExperienceCart},
+                                     CityScreen:  {screen: CityScreen},
+                                     FiltersScreen:  {screen: FiltersScreen},
+                                     Activity: {screen:Activity},
+                                     tab1: {screen:firstPage },
+                                     tab2: {screen:secondPage},
+                                     tab3: {screen:thirdPage},
+                                     //ProfileScreen:  {screen: ProfileScreen },
+           });
+
+
+
+           if(this.state.isStoreLoading==true)
+           {
+              return <Text>Caricamento</Text>
+           }else
+           {
+             console.log("STORE",this.state.store);
+             console.log("STORE TUTO",this.state.store.getState());
+             console.log('VERO O FALSO',this.state.store.getState().auth.isLogged);
+
+             if(this.state.store.getState().auth.isLogged)
+             {
+                if(Platform.OS === 'ios')
+                {
+                  return(
+                    <Provider store={this.state.store}>
+                      <MainNavigatorIOS/>
+                    </Provider>
+                  );
+                }else
+                {
+                  return(
+                    <Provider store={this.state.store}>
+                      <MainNavigator/>
+                    </Provider>
+                  );
+                }
+
+             }
+             else
+             {
+                if(Platform.OS === 'ios')
+                {
+                  return(
+                    <Provider store={this.state.store}>
+                      <LoginNavigatorIOS/>
+                    </Provider>
+                  );
+                }else
+                {
+                  return (
+                    <Provider store={this.state.store}>
+                      <LoginNavigator/>
+                    </Provider>
+                  );
+                }
+
+             }
+           }
 
 
     }
