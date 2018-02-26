@@ -42,14 +42,14 @@ const { navigate } = this.props.navigation;
 return (
 <Content style={{ flex:1 }} scrollEnabled={false}>
   <LinearGradient
-           colors={['#2b5876','#4e4376']}
+           colors={['#2F80ED','#2F80ED']}  /*['#2b5876','#4e4376']*/
            style={{ height:'100%'}}
   >
   <Container>
       <Row  style={styles.firstRow}>
         <Image
-          style={{width:100,height:100}}
-          source={require('../../assets/logoapp.png')}
+          style={{width:180,height:180,marginTop:30, borderRadius:100}}
+          source={require('../../assets/logo.png')}
           >
         </Image>
       </Row>

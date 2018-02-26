@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
-import { AppRegistry, Text, Image, View, StyleSheet, TouchableWithoutFeedback, FlatList,TouchableOpacity ,KeyboardAvoidingView } from 'react-native';
-import { Container, Header, Content, DeckSwiper ,Card, CardItem, Thumbnail, Button, Icon, Left, Body, Right, Grid, Row,Col,Input,Item ,Spinner} from 'native-base';
+import { AppRegistry, Text, Image, View, StyleSheet, TouchableWithoutFeedback, FlatList,TouchableOpacity ,KeyboardAvoidingView,Platform,Alert } from 'react-native';
+import { Container, Header, Content, DeckSwiper ,Card, CardItem, Thumbnail, Button, Icon, Left, Body, Right, Grid, Row,Col,Input,Item ,Spinner,List,ListItem,ActionSheet} from 'native-base';
 import { LinearGradient, ImagePicker } from 'expo';
 import { profileUpdateStart, profileUpdateSuccess, profileUpdateFailed, userFetchStart, userFetchSuccess, userFetchFailed,  }  from '../actions/ProfileActions.js';
 
@@ -14,24 +14,24 @@ import * as firebase from 'firebase';
 
 class ProfileScreenBody extends Component {
 
-  state = {name:"" , age: "", phone:"" }
+  state = {name:this.props.ProfileFetch.name , age:this.props.ProfileFetch.age, phone:this.props.ProfileFetch.phone }
 
   loadSpinner()
   {
     if(this.props.ProfileLoading)
     {
       return(
-     <Spinner color='black' />
+        <Spinner />
       );
     }
 
     else {
-      return(   <Thumbnail large circle source={{uri: this.UserPhoto() }} style={{ width: 90, height: 90, borderRadius:50, }}/> );
+      return( <Image style={{backgroundColor:'white',width:95,height: 95,borderRadius:10}} source={{uri: this.UserPhoto() }} /> );
     }
 
   }
 
-  pickImage = async (uid,useCamera) => {
+  /*pickImage = async (uid,useCamera) => {
 
     console.log('in pick image')
     var pickerResult;
@@ -47,12 +47,12 @@ class ProfileScreenBody extends Component {
 
     } else
     {
-      pickerResult = await ImagePicker.launchImageLibraryAsync({
-                     allowsEditing: true,
-                     quality: .8,
-                     aspect: [3, 3],
-                     base64: true
-      });
+        pickerResult = await ImagePicker.launchImageLibraryAsync({
+                       allowsEditing: true,
+                       quality: .8,
+                       aspect: [3, 3],
+                       base64: true
+        });
 
     }
 
@@ -82,7 +82,7 @@ class ProfileScreenBody extends Component {
 
 
 
-  }//pickImage
+  }//pickImage */
 
 
 
@@ -130,7 +130,16 @@ UpdatePhotoURL(uid,downloadURL)
   firebase.database().ref(`/users/${uid}`)                                                                          //faccio riferimento alla tabella del corrente utente (UID) presente nella tabella users di firebase
    .set({ name: this.props.ProfileFetch.name ,  age: this.props.ProfileFetch.age , phone: this.props.ProfileFetch.phone , email: this.props.ProfileFetch.email, url: downloadURL  })      //modifico i dati
      .then(() =>{   //this.props.actions.profileUpdateSuccess(),                                                              //se le modifiche sono andate a buon fine, cambio lo stato dell'applicazione comunicandolo allo store attraverso action e successivamente reducer
-                    this.ViewResults() ,alert("Edit Success!")                                                                  //Invoco ViewResults()  per estrapolare i nuovi dati e stamparli
+                    this.ViewResults() ,
+                    Alert.alert(
+                      'Edit Success!',
+                      "",
+                      [
+                        {text: 'Ok'},
+                      ],
+                      { cancelable: false }
+                    );
+                                                                //Invoco ViewResults()  per estrapolare i nuovi dati e stamparli
       })
      .catch(error=>{alert(error) });
 
@@ -222,6 +231,87 @@ UpdatePhotoURL(uid,downloadURL)
   }
 
 
+  picker = () =>{
+  var BUTTONS = ["Camera", "Gallery", "Cancel"];
+  var DESTRUCTIVE_INDEX = 2;
+  var CANCEL_INDEX = 2;
+  if ( this.actionSheet !== null )
+  {
+              // Call as you would ActionSheet.show(config, callback)
+     this.actionSheet._root.showActionSheet({
+       options: BUTTONS,
+       cancelButtonIndex: CANCEL_INDEX,
+       destructiveButtonIndex: DESTRUCTIVE_INDEX,
+       title: "Select Image"
+     },
+    async buttonIndex => {
+       //this.setState({ clicked: BUTTONS[buttonIndex] });
+       var pickerResult;
+
+       if(BUTTONS[buttonIndex] == "Camera")
+       {
+
+           pickerResult = await ImagePicker.launchCameraAsync({
+                          allowsEditing: true,
+                          quality: .8,
+                          aspect: [3, 3],
+                          base64: true
+           });
+
+
+       }else if(BUTTONS[buttonIndex] == "Gallery")
+       {
+
+           pickerResult = await ImagePicker.launchImageLibraryAsync({
+                        allowsEditing: true,
+                        quality: .8,
+                        aspect: [3, 3],
+                        base64: true
+           });
+
+       }else if(BUTTONS[buttonIndex] == "Cancel")
+       {
+          return;
+       }  //END Select camera or gallery
+
+       if (pickerResult.cancelled) return;
+
+       let byteArray = this.convertToByteArray(pickerResult.base64);
+
+
+
+       //estraggo il corrente utente
+       const { currentUser } = firebase.auth();
+
+       //Inizia upload photo
+
+       var storageRef = firebase.storage().ref(`/images/${this.props.uid}`).child("photo.jpg");
+
+       var uploadTask = storageRef.put(byteArray,  { contentType: 'image/jpg' }).          //inserisco l'immagine convertita in array di byte su firebase
+       then(()=> storageRef.getDownloadURL().                                             //Se va bene estraggo url dove è posizionata la foto
+                           then((url) => this.UpdatePhotoURL(this.props.uid,url) )                      //Se va bene passo url al metodo UpdatePhotoURL per aggiornare la foto
+                           .catch(()  => alert("ERROR: photo not loaded"))               //Altrimenti se c'è un problema sull'estrazione dell'url
+
+       )
+       .catch(()=> alert("ERROR: photo not loaded"));                                   ////Altrimenti se c'è un problema sul caricamento della foto
+
+     }, (i) => console.log(i));
+  }
+
+}
+
+
+  modifyButton()
+  {
+    if(this.state.name != this.props.ProfileFetch.name || this.state.age != this.props.ProfileFetch.age || this.state.phone != this.props.ProfileFetch.phone)
+    {
+      return(
+        <TouchableOpacity style={{backgroundColor:'#5bb85c',height:40,justifyContent:'center' ,alignItems:'center'}} onPress={()=>this.UpdateProfile()}>
+          <Text style={{color:'white',fontWeight:'bold'}}>EDIT</Text>
+        </TouchableOpacity>
+      )
+    }
+  }
 
 
   render() {
@@ -233,53 +323,74 @@ UpdatePhotoURL(uid,downloadURL)
 
     return (
 
+
+
 <Container>
 <LinearGradient  colors={['#56CCF2','#2F80ED']}    style={{ height:'100%' , width: '100%'}} >
-           <View style={{ flex:1, flexDirection:'column', justifyContent:'center',  alignItems: 'center',  backgroundColor:'black' }}>
-
-              {this.loadSpinner()}
-
-              <View style={{flexDirection:'row', justifyContent:'space-around', alignItems: 'center', width: 110,height: 50, backgroundColor:'transparent' }}>
-                  <TouchableOpacity onPress={ ()=> this.pickImage(this.props.uid,true)  } style={{alignSelf: 'flex-end', bottom: 8, borderRadius: 5, backgroundColor: '#ecf0f1', justifyContent: 'center',alignItems: 'center', width:30,height: 30}}>
-                      <Icon  name="md-camera"  style= {{  fontSize:18 }}/>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity onPress={ ()=> this.pickImage(this.props.uid,false)  } style={{alignSelf: 'flex-end', bottom: 8, borderRadius: 5, backgroundColor: '#ecf0f1', justifyContent: 'center',alignItems: 'center', width:30,height: 30}}>
-                      <Icon  name="md-images"  style= {{  fontSize:18 }}/>
-                  </TouchableOpacity>
-              </View>
-
-           </View>
+       <Content >
 
 
-           <View  style= {{flex:2, flexDirection:'column',justifyContent:'flex-start',alignItems:'center', marginTop:40}}>
-
-                <Item >
-                    <Text style={styles.paragraph}>Name:  </Text>
-                    <Input maxLength={21}  placeholder={this.UserName()} onChangeText={(name)=>this.setState({name})}  placeholderTextColor='black' />
-                    <Icon style={{marginTop:5, marginRight:5, fontSize: 18}} name="md-close" onPress={()=> alert("ok")} />
-                </Item>
-
-                <Item style={{top:5}}>
-                     <Text style={styles.paragraph}>Age:     </Text>
-                     <Input maxLength={3} placeholder={this.UserAge()} keyboardType={"numeric"} onChangeText={(age)=>this.setState({age})} placeholderTextColor='black' />
-                     <Icon style={{marginTop:5, marginRight:5, fontSize: 18}} name="md-close" />
-                </Item>
-
-                <Item style={{top:5}}>
-                    <Text style={styles.paragraph}>Phone: </Text>
-                    <Input maxLength={10} placeholder={this.UserPhone()} keyboardType={"numeric"} onChangeText={(phone)=>this.setState({phone})} placeholderTextColor='black' />
-                    <Icon style={{marginTop:5, marginRight:5, fontSize: 18}} name="md-close" />
-                </Item>
-
+          <View style={{width:100,height:100,borderRadius:10, ...Platform.select({ ios: { marginTop:40, },android:{marginTop:30} }),backgroundColor:'white',alignSelf:'center',justifyContent:'center',alignItems:'center'}}>
+            {this.loadSpinner()}
           </View>
 
-          <Button full ligh style={{backgroundColor: '#ecf0f1'}} onPress={() => this.UpdateProfile() } >
-            <Text style={{fontSize: 16,fontWeight: 'bold', textAlign: 'center', color: 'black',}} >EDIT</Text>
-          </Button>
-</LinearGradient>
 
-</Container>
+
+
+           <List style={{backgroundColor:'white',marginTop: 30}}>
+             <ListItem itemDivider >
+               <Text style={{fontWeight:'bold', color:'black', opacity:0.75}} >Nome</Text>
+             </ListItem>
+             <Item regular style={{marginLeft:-1}}>
+               <Input placeholder={this.UserName()}
+                      onChangeText={(name)=>this.setState({name})}
+                      style={{color:'black',marginLeft:10}}
+               />
+             </Item>
+
+             <ListItem itemDivider >
+               <Text style={{fontWeight:'bold', color:'black', opacity:0.75}}>Age</Text>
+             </ListItem>
+             <Item regular style={{marginLeft:-1}}>
+               <Input placeholder={this.UserAge()}
+                      onChangeText={(age)=>this.setState({age})}
+                      style={{color:'black',marginLeft:10}}
+                      keyboardType='numeric'
+               />
+             </Item>
+
+             <ListItem itemDivider >
+               <Text style={{fontWeight:'bold', color:'black', opacity:0.75}}>Phone</Text>
+             </ListItem>
+             <Item regular style={{marginLeft:-1}}>
+               <Input placeholder={this.UserPhone()}
+                      onChangeText={(phone)=>this.setState({phone})}
+                      keyboardType='phone-pad'
+                      style={{color:'black',marginLeft:10}}
+               />
+             </Item>
+           </List>
+
+
+           {this.modifyButton()}
+
+
+
+         <View
+            elevation={8}
+            style={{position:'absolute',right:0,top:140,marginRight:24, backgroundColor:'white', borderRadius:20,width:40,height:40,justifyContent:'center',alignItems:'center',shadowColor: 'black',shadowOffset: { width: 0, height: 3 },shadowRadius: 5,shadowOpacity: 1.0,}}
+          >
+           <TouchableOpacity onPress={()=> this.picker()} >
+              <Icon  name="md-camera" />
+           </TouchableOpacity>
+          </View>
+
+<ActionSheet ref={(c) => { this.actionSheet = c; }} />
+       </Content>
+       </LinearGradient>
+     </Container>
+
+
 
 
     );

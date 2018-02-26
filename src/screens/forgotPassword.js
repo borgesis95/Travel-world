@@ -28,7 +28,7 @@ class forgotPassword extends Component {
           <Container>
             <Content style={{ flex:1 }} contentContainerStyle={{ flex: 1 }} >
               <LinearGradient
-                       colors={['#2b5876','#4e4376']}
+                       colors={['#2F80ED','#2F80ED']}
                        style={{ height:'100%'}}
               >
             <Row style={{flex:0.3}}/>
