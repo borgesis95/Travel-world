@@ -14,7 +14,46 @@ import * as firebase from 'firebase';
 
 class ProfileScreenBody extends Component {
 
-  state = {name:this.props.ProfileFetch.name , age:this.props.ProfileFetch.age, phone:this.props.ProfileFetch.phone }
+  state = {
+            name: "" ,
+            age:  "" ,
+            phone:"" ,
+          }
+
+  async componentWillMount()
+  {
+
+    if(Platform.OS === 'ios')
+    {
+      //  const { currentUser } = firebase.auth();                     //estraggo il corrente utente
+         console.log("UID LOG did mount",this.props.uid);
+       this.props.actions.userFetchStart();                         //inizio estrazione dati utente
+       firebase.database().ref(`/users`).once('value').              //prelevo i datti dalla tabella/oggetto  user  in firebase
+       then((snapshot)=> {                                          //snaphot contiene tutti gli UID degli utenti
+
+         var items;
+         snapshot.forEach((child) => {                             //scorro gli UID
+           if( this.props.uid ==  child.key){                    //se UID del corrente utente è uguale allo UID esaminato nel database
+
+               items= child.val();                                //allora copia tutti i dati (name,age,phone,email)  in items
+           }
+
+         });
+
+         this.props.actions.userFetchSuccess(items)              //passa items all'action in modo da restituire successivamente i dati aggiornati tramite reducer ProfileFetch
+       }).
+       catch(error=>this.props.actions.userFetchFailed(error));  //se l'estrazione non è andata a buon fine ritorna errore
+    }
+
+    var name = this.props.ProfileFetch != null ? this.props.ProfileFetch.name : "" ;
+    var age  = this.props.ProfileFetch != null ? this.props.ProfileFetch.age  : "" ;
+    var phone= this.props.ProfileFetch != null ? this.props.ProfileFetch.phone: "" ;
+
+    this.setState({name});
+    this.setState({age});
+    this.setState({phone});
+
+  }
 
   loadSpinner()
   {
@@ -303,7 +342,7 @@ UpdatePhotoURL(uid,downloadURL)
 
   modifyButton()
   {
-    if(this.state.name != this.props.ProfileFetch.name || this.state.age != this.props.ProfileFetch.age || this.state.phone != this.props.ProfileFetch.phone)
+    if(this.props.ProfileFetch != null && (this.state.name != this.props.ProfileFetch.name || this.state.age != this.props.ProfileFetch.age || this.state.phone != this.props.ProfileFetch.phone))
     {
       return(
         <TouchableOpacity style={{backgroundColor:'#5bb85c',height:40,justifyContent:'center' ,alignItems:'center'}} onPress={()=>this.UpdateProfile()}>

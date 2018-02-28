@@ -22,7 +22,7 @@ class LoginForm extends Component {
 
   loadSpinner()
   {
-    if(!this.props.isLoading)
+    if(this.props.isLoading)
     {
       return(
      <Spinner color='black' />

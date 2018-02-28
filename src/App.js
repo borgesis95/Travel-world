@@ -29,8 +29,9 @@ import ExperienceCart from './screens/ExperienceCart';
 import forgotPassword from './screens/forgotPassword';
 import firstPageAdd from './screens/firstPageAdd';
 import AddExperience from './screens/AddExperience';
-import CityScreen   from './screens/CityScreen.js'
-import FiltersScreen   from './screens/FiltersScreen.js'
+import CityScreen   from './screens/CityScreen.js';
+import FiltersScreen   from './screens/FiltersScreen.js';
+import LogoutScreen   from './screens/LogoutScreen.js'
 import Sidebar from './containers/sidebar.js';
 import TabBar from './components/appFooter.js';
 
@@ -204,7 +205,7 @@ const LoginNavigator = StackNavigator({
                                          ProfileScreen:  {screen: ProfileScreen },
                                          homepage :     {screen: myHome},
                                          experienceCart:{screen: ExperienceCart},
-
+                                         LogoutScreen: {screen: LogoutScreen}
 
 
 
@@ -250,6 +251,7 @@ const LoginNavigator = StackNavigator({
                                          ProfileScreen:  {screen: ProfileScreen },
                                          homepage :     {screen: myHome},
                                          experienceCart:{screen: ExperienceCart},
+                                         LogoutScreen: {screen: LogoutScreen}
                                        },
                                        {
                                          //tabBarComponent: TabBar,
