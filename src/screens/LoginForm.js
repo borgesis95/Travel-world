@@ -48,7 +48,7 @@ return (
   <Container>
       <Row  style={styles.firstRow}>
         <Image
-          style={{width:180,height:180,marginTop:30, borderRadius:100}}
+          style={{width:180,height:180,marginTop:30,borderRadius:90}}
           source={require('../../assets/logo.png')}
           >
         </Image>
