@@ -96,9 +96,9 @@ class HomeBody extends Component {
       return(
         <View>
           <LinearGradient  colors={['#56CCF2','#2F80ED']}    style={{ height:'100%' , width: '100%',flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center'}} >
-                <Text style= {{ fontSize: 18, fontWeight: 'bold', color: '#fafad2',  top: 5 }} > JUST A MOMENT... </Text>
+                <Text style= {{ fontSize: 18, fontWeight: 'bold', color: '#fafad2',  top: 5, backgroundColor:'transparent' }} > JUST A MOMENT... </Text>
                    <Bubbles size={10} color="#FFF" />
-                <Text style= {{ fontSize: 16, fontWeight: 'bold', color: '#fafad2',  bottom: 5 }}>  LOADING CITY </Text>
+                <Text style= {{ fontSize: 16, fontWeight: 'bold', color: '#fafad2',  bottom: 5,backgroundColor:'transparent' }}>  LOADING CITY </Text>
             </LinearGradient>
         </View>
 
