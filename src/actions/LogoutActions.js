@@ -5,24 +5,14 @@ import { NavigationActions } from 'react-navigation';
 
 export const logoutUserStart = () =>
 {
-    return {
-
-            type: "LOGOUT_USER_START"
-
-    }
+    return { type: "LOGOUT_USER_START" }
 }
 
 
 
-export const logoutUserSuccess = (reset) => {
+export const logoutUserSuccess = () => {
 
-    //il parametro reset è un oggetto che invoca il metodo this.props.reset()
-    //presente nella nella funzione this.props.actions.logoutUserSuccess() del file sidebar.js
-    reset.logout();
-    return {
-            type: "LOGOUT_USER_SUCCESS" ,
-
-    }
+    return { type: "LOGOUT_USER_SUCCESS" }
 
 }
 

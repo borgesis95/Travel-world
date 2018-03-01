@@ -1,6 +1,6 @@
 
 import React , {Component} from 'react';
-import  {View , Text ,StyleSheet,Image,Dimensions, } from 'react-native';
+import  {View , Text ,StyleSheet,Image,Dimensions,TouchableOpacity } from 'react-native';
 import { Container, Header, Content, Form, Item, Input , Button ,Label,Body,Title,Icon,Left,Right,Card,CardItem,Thumbnail,Spinner } from 'native-base';
 import {loginUser,loginWithFacebook } from '../actions/AuthActions';
 import { connect } from 'react-redux';
@@ -22,7 +22,7 @@ class LoginForm extends Component {
 
   loadSpinner()
   {
-    if(!this.props.isLoading)
+    if(this.props.isLoading)
     {
       return(
      <Spinner color='black' />
@@ -47,11 +47,20 @@ return (
   >
   <Container>
       <Row  style={styles.firstRow}>
+<<<<<<< HEAD
         <Image
           style={{width:180,height:180,marginTop:30,borderRadius:90}}
           source={require('../../assets/logo.png')}
           >
         </Image>
+=======
+        <View elevation={8} style={{width:180,height:180,marginTop:30, borderRadius:100,backgroundColor:'white',shadowColor: 'black',shadowOffset: { width: 0, height: 3 },shadowRadius: 5,shadowOpacity: 1.0,}}>
+          <Image
+            style={{width:180,height:180, borderRadius:100}}
+            source={require('../../assets/logo.png')}
+          />
+        </View>
+>>>>>>> bc8c38b311ccf27c56d97878e9ce16ea1067528e
       </Row>
       <Col style={styles.secondColumn}>
         <Form style={{right:5,}}>
@@ -90,8 +99,13 @@ return (
         </Button>
       </Row>
       <Row style={styles.lastRow}>
-        <Text style={styles.createAndForgot}onPress={()=>navigate('register')}> Create An Account </Text>
-        <Text style={styles.createAndForgot}onPress={()=>navigate('forgotPassword')}> Forgot a password?</Text>
+        <TouchableOpacity onPress={()=>navigate('register')}>
+          <Text style={styles.createAndForgot}> Create An Account </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={()=>navigate('forgotPassword')}>
+          <Text style={styles.createAndForgot}> Forgot a password?</Text>
+        </TouchableOpacity>
       </Row>
 
 
