@@ -138,7 +138,7 @@ const MainNavigator = StackNavigator({
      },
      //homepage : {screen: myHome},
      login: {screen: LoginForm},
-     firstAdd: {screen:ExperienceNavigator},
+     add: {screen:ExperienceNavigator},
      forgotPassword: {screen: forgotPassword},
      register: { screen:RegisterForm},
      login: {screen: LoginForm},
@@ -180,7 +180,7 @@ const LoginNavigator = StackNavigator({
        })
      },
      //homepage : {screen: myHome},
-     firstAdd: {screen:ExperienceNavigator},
+     add: {screen:ExperienceNavigator},
      forgotPassword: {screen: forgotPassword},
      register: { screen:RegisterForm},
      //experienceCart:{screen: ExperienceCart},
@@ -205,6 +205,7 @@ const LoginNavigator = StackNavigator({
                                          ProfileScreen:  {screen: ProfileScreen },
                                          homepage :     {screen: myHome},
                                          experienceCart:{screen: ExperienceCart},
+                                         add: {screen:ExperienceNavigator},
                                          LogoutScreen: {screen: LogoutScreen}
 
 
@@ -228,7 +229,7 @@ const LoginNavigator = StackNavigator({
                                      },
                                      //homepage : {screen: myHome},
                                      login: {screen: LoginForm},
-                                     firstAdd: {screen:ExperienceNavigator},
+                                     //add: {screen:ExperienceNavigator},
                                      forgotPassword: {screen: forgotPassword},
                                      register: { screen:RegisterForm},
 
@@ -251,6 +252,7 @@ const LoginNavigator = StackNavigator({
                                          ProfileScreen:  {screen: ProfileScreen },
                                          homepage :     {screen: myHome},
                                          experienceCart:{screen: ExperienceCart},
+                                         add: {screen:ExperienceNavigator},
                                          LogoutScreen: {screen: LogoutScreen}
                                        },
                                        {
@@ -270,7 +272,7 @@ const LoginNavigator = StackNavigator({
                                        })
                                      },
                                      //homepage : {screen: myHome},
-                                     firstAdd: {screen:ExperienceNavigator},
+                                     //add: {screen:ExperienceNavigator},
                                      forgotPassword: {screen: forgotPassword},
                                      register: { screen:RegisterForm},
                                      //experienceCart:{screen: ExperienceCart},
