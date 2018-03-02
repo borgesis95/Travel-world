@@ -1,7 +1,7 @@
 import {LOGIN_USER_START,LOGIN_USER_SUCCESS,LOGIN_USER_FAIL} from './types';
 import firebase from 'firebase';
 import { NavigationActions } from 'react-navigation';
-
+import { Permissions, Notifications } from 'expo';
 
 export const loginUser = ({email,password,navigateTo,navigation}) =>
 {
@@ -15,7 +15,10 @@ export const loginUser = ({email,password,navigateTo,navigation}) =>
 }
 
 
-const loginUserSuccess = (user,dispatch,navigateTo,navigation) => {
+const loginUserSuccess = async (user,dispatch,navigateTo,navigation) => {
+
+  token =  await registerForPushNotificationsAsync(user.uid);
+
     dispatch({
                 type:LOGIN_USER_SUCCESS ,
                 email:user.email,
@@ -54,3 +57,39 @@ const resetAction = NavigationActions.reset({
     NavigationActions.navigate({ routeName: 'homepage'})
   ]
 })
+
+async function registerForPushNotificationsAsync(uid) {
+ const { status: existingStatus } = await Permissions.getAsync(
+   Permissions.NOTIFICATIONS
+ );
+ let finalStatus = existingStatus;
+
+ // only ask if permissions have not already been determined, because
+ // iOS won't necessarily prompt the user a second time.
+ if (existingStatus !== 'granted') {
+   // Android remote notification permissions are granted during the app
+   // install, so this will only ask on iOS
+   const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+   finalStatus = status;
+ }
+
+ // Stop here if the user did not grant permissions
+ if (finalStatus !== 'granted') {
+   return;
+ }
+
+ // Get the token that uniquely identifies this device
+ let token = await Notifications.getExpoPushTokenAsync();
+ var str = token.split('[');
+ final = str[1].split(']');
+ console.log("stringa 1",str[1]);
+ console.log("STRINGA TOKEN",final[0]);
+ var database = firebase.database();
+ await firebase.database().ref('TokenUtentiPush/'+uid+'/'+final[0]).set({
+   expoToken:token,
+  });
+ // console.log("TOKEN",token);
+
+ return token;
+
+}
