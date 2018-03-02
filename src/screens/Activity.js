@@ -64,7 +64,7 @@ import { Container, Header, Content, Form, Item, Input , Button
 render()
   {
     const { navigate } = this.props.navigation;
-    alert(this.props.uid);
+    
 if(this.state.items!="")
 {
 
