@@ -271,7 +271,11 @@ UpdatePhotoURL(uid,downloadURL)
 
 
   picker = () =>{
-  var BUTTONS = ["Camera", "Gallery", "Cancel"];
+    var BUTTONS = [
+      { text: "Camera", icon: "md-camera", iconColor: "#000000cf" },
+      { text: "Gallery", icon: "md-images", iconColor: "#2c8ef4" },
+      { text: "Cancel", icon: "close", iconColor: "#ca333d" }
+    ];
   var DESTRUCTIVE_INDEX = 2;
   var CANCEL_INDEX = 2;
   if ( this.actionSheet !== null )
@@ -420,7 +424,7 @@ UpdatePhotoURL(uid,downloadURL)
             style={{position:'absolute',right:0,top:140,marginRight:24, backgroundColor:'white', borderRadius:20,width:40,height:40,justifyContent:'center',alignItems:'center',shadowColor: 'black',shadowOffset: { width: 0, height: 3 },shadowRadius: 5,shadowOpacity: 1.0,}}
           >
            <TouchableOpacity onPress={()=> this.picker()} >
-              <Icon  name="md-camera" />
+              <Icon  name="md-create" />
            </TouchableOpacity>
           </View>
 
