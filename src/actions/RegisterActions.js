@@ -4,6 +4,8 @@ import firebase from 'firebase';
 
 
 
+
+
 export const RegisterUser = ({email,password})=> // Per la registrazione occorrono nome,
                                                              // cognome,email,password =>
 {
@@ -18,6 +20,8 @@ export const RegisterUser = ({email,password})=> // Per la registrazione occorro
 
         }
 }
+
+
 
 
  const RegisterSuccess = (dispatch,user) =>

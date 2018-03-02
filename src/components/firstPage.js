@@ -10,23 +10,25 @@ import AppFooter from './appFooter.js';
  export default class FirstPage extends Component  // DateAndName
 {
 
-  static navigationOptions = {
-    header: null
-  };
 
+  static navigationOptions = {
+    header: null,
+    tabBarLabel:'Add',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="ios-add-circle" style={{fontSize:26,color: tintColor }}/>
+    )
+  };
     constructor(props)
     {
         super(props);
-        console.ignoredYellowBox = [
-  'Setting a timer'
-  ];
+
         this.state = {
                       experienceDescription:"",
                       title:"",
                       date:"",
                       today: new Date()
-                     }
-
+        }
+      console.ignoredYellowBox = true;
     }
     render()
     {
@@ -44,11 +46,9 @@ return(
     <Grid style={{flex:1}}>
         <Row style={styles.firstRow}>
           <Form style={styles.form}>
-                <Label style={{fontWeight:'bold', color:'white',top:30,color:'trasparent'}}>
-                   Give  name to your Experience
-                </Label>
+
                   <Item regular  style={styles.item}>
-                      <Input placeholder="Type Here"
+                      <Input placeholder="Give name to your experience"
                            maxLength={20}
                            placeholderTextColor='white'
                            style={{color:'white',textAlign:'center'}}
@@ -56,7 +56,7 @@ return(
                       />
                   </Item>
                   <Item regular style={styles.itemDescription}>
-                      <Input placeholder="Describe your experience"
+                      <Input placeholder="Describe with just a few words your experience"
                          numberOfLines={3}
                           multiline={true}
                           maxLength={320}
@@ -103,19 +103,23 @@ return(
                 },
                 dateText: {color: 'white',}
               }}
-          />
+            />
             </Row>
+            <Row style={styles.thirdRow}>
+              <Button rounded iconLeft light style={styles.button}
+                onPress={() => navigate('tab2',{
+                  name:this.state.title,
+                  date:this.state.date,
+                  experienceDescription:this.state.experienceDescription
+                })}
+              >
+                <Label style={styles.text}>Next</Label>
+            </Button>
+            </Row>
+
     </Grid>
-      <Button style={styles.button}
-        onPress={() => navigate('tab2',{
-          name:this.state.title,
-          date:this.state.date,
-          experienceDescription:this.state.experienceDescription
-        })}
-      >
-        <Label style={styles.text}>Avanti</Label>
-    </Button>
-    
+
+
   </LinearGradient>
 </Container>
 </Content>
@@ -139,11 +143,19 @@ const styles =StyleSheet.create({
 
     secondRow:
     {
+    //  backgroundColor:'red',
       flex:1,
       display:'flex',
       justifyContent:'center',
-      alignItems:'flex-start',
+      alignItems:'center',
       top:10
+    },
+
+    thirdRow:
+    {
+      flex:0.5,
+    //  backgroundColor:'red',
+      justifyContent:'center',
     },
 
     form:
@@ -188,21 +200,21 @@ const styles =StyleSheet.create({
 
     button:
     {
-        backgroundColor:'blue',
-        height:50,
-        width:'100%',
+        backgroundColor:'#feda4b',
+      //  height:50,
+        width:'90%',
         display:'flex',
         flexDirection:'row',
-        alignItems:'flex-end',
+        alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'#4682B4',
+
 
     },
     text:
     {
       fontSize:20,
       alignSelf:'center',
-      color:'white',
+      color:'black',
     },
 
 });

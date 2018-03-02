@@ -30,13 +30,13 @@ class FiltersScreenBody extends Component {
                 </Card>
               </TouchableOpacity>
 
-              <TouchableOpacity style={{flex:1}} activeOpacity={0.6}  onPress={() =>{ this.props.typeExperienceSelected("Food"); this.props.navigate('CityScreen');} }  >
+              <TouchableOpacity style={{flex:1}} activeOpacity={0.6}  onPress={() =>{ this.props.typeExperienceSelected("Tourism"); this.props.navigate('CityScreen');} }  >
                 <Card>
                   <Image  style={{  height: '100%', width: '100%', borderRadius: 2, alignSelf: 'center' }} source={require('../../assets/2.png')} />
                 </Card>
               </TouchableOpacity>
 
-              <TouchableOpacity style={{flex:1}}  activeOpacity={0.6}  onPress={() =>{ this.props.typeExperienceSelected("Food"); this.props.navigate('CityScreen');} }  >
+              <TouchableOpacity style={{flex:1}}  activeOpacity={0.6}  onPress={() =>{ this.props.typeExperienceSelected("Sport"); this.props.navigate('CityScreen');} }  >
                 <Card>
                   <Image  style={{  height: '100%', width: '100%', borderRadius: 2, alignSelf: 'center' }} source={require('../../assets/3.png')} />
                 </Card>

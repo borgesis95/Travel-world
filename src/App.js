@@ -1,5 +1,5 @@
 import React from 'react';
-import  {StyleSheet ,Text, View ,StatusBar , Platform , ScrollView , AsyncStorage,AppState} from 'react-native';
+import  {StyleSheet ,Text, View ,StatusBar , Platform , ScrollView , AsyncStorage,AppState,Alert} from 'react-native';
  // import {Provider } from 'react-redux';// makes the redux store avaible with the connect  ;
   import appReducer from './reducers';  // appReducer is a file that combine all reducers and it's
   import { Provider } from 'react-redux';
@@ -14,7 +14,7 @@ import ReduxThunk from 'redux-thunk' ; // need to install
 
 import * as firebase from 'firebase';
 
-import {StackNavigator,TabNavigator,DrawerNavigator } from 'react-navigation'; // need to install
+import {StackNavigator,TabNavigator,DrawerNavigator,NavigationActions } from 'react-navigation'; // need to install
 import LoginForm from './screens/LoginForm';
 import RegisterForm from './screens/RegisterForm';
 import myHome from './screens/myHome.js';
@@ -35,6 +35,9 @@ import LogoutScreen   from './screens/LogoutScreen.js'
 import Sidebar from './containers/sidebar.js';
 import TabBar from './components/appFooter.js';
 
+import Expo ,{Notifications} from 'expo';
+
+
 const initialState ={};
 let store = createStore(appReducer,applyMiddleware(logger,ReduxThunk));
 
@@ -44,11 +47,15 @@ class App extends React.Component{
        super();
        this.state ={isReady: false,
                     isStoreLoading: false,
-                    store: store
+                    store: store,
+                    notification: {},
+
        };
   }
 
  async componentWillMount(){
+   console.disableYellowBox = true;
+
       await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
@@ -85,7 +92,7 @@ class App extends React.Component{
             self.setState({store: store});
             self.setState({isStoreLoading: false});
        })
-
+    this._notificationSubscription = Notifications.addListener(this._handleNotification);
    }
 
    /*
@@ -101,6 +108,10 @@ class App extends React.Component{
      AsyncStorage.setItem('completeStore', storingValue);
   }
 
+  _handleNotification = (notification) => {
+    this.setState({notification: notification});
+  };
+
 
 render(){
    if (!this.state.isReady)
@@ -112,6 +123,7 @@ const ExperienceNavigator = StackNavigator({
       tab1: {screen:firstPage },
       tab2: {screen:secondPage},
       tab3: {screen:thirdPage},
+
   },
 );
 
@@ -138,7 +150,7 @@ const MainNavigator = StackNavigator({
      },
      //homepage : {screen: myHome},
      login: {screen: LoginForm},
-     firstAdd: {screen:ExperienceNavigator},
+     add: {screen:ExperienceNavigator},
      forgotPassword: {screen: forgotPassword},
      register: { screen:RegisterForm},
      login: {screen: LoginForm},
@@ -179,20 +191,14 @@ const LoginNavigator = StackNavigator({
 
        })
      },
-     //homepage : {screen: myHome},
-     firstAdd: {screen:ExperienceNavigator},
+
+     add: {screen:ExperienceNavigator},
      forgotPassword: {screen: forgotPassword},
      register: { screen:RegisterForm},
-     //experienceCart:{screen: ExperienceCart},
-     //CityScreen:  {screen: CityScreen},
-     //FiltersScreen:  {screen: FiltersScreen},
      Activity: {screen:Activity},
      tab1: {screen:firstPage },
      tab2: {screen:secondPage},
      tab3: {screen:thirdPage},
-     //ProfileScreen:  {screen: ProfileScreen },
-
-
    },
    {
      headerMode: 'none',
@@ -204,14 +210,13 @@ const LoginNavigator = StackNavigator({
                                        screen: TabNavigator({
                                          ProfileScreen:  {screen: ProfileScreen },
                                          homepage :     {screen: myHome},
+
                                          experienceCart:{screen: ExperienceCart},
-                                         LogoutScreen: {screen: LogoutScreen}
-
-
+                                         LogoutScreen: {screen: LogoutScreen},
 
                                        },
                                        {
-                                         //tabBarComponent: TabBar,
+                                         tabBarComponent: TabBar,
                                          tabBarPosition: 'bottom',
                                          animationEnabled: true,
                                          tabBarOptions: {
@@ -228,14 +233,14 @@ const LoginNavigator = StackNavigator({
                                      },
                                      //homepage : {screen: myHome},
                                      login: {screen: LoginForm},
-                                     firstAdd: {screen:ExperienceNavigator},
+                                     //add: {screen:ExperienceNavigator},
                                      forgotPassword: {screen: forgotPassword},
                                      register: { screen:RegisterForm},
 
                                      //experienceCart:{screen: ExperienceCart},
                                      CityScreen:  {screen: CityScreen},
                                      FiltersScreen:  {screen: FiltersScreen},
-
+                                     add: {screen:ExperienceNavigator},
                                      Activity: {screen:Activity},
                                      tab1: {screen:firstPage },
                                      tab2: {screen:secondPage},
@@ -250,11 +255,12 @@ const LoginNavigator = StackNavigator({
                                        screen: TabNavigator({
                                          ProfileScreen:  {screen: ProfileScreen },
                                          homepage :     {screen: myHome},
+
                                          experienceCart:{screen: ExperienceCart},
-                                         LogoutScreen: {screen: LogoutScreen}
+                                         LogoutScreen: {screen: LogoutScreen }
                                        },
                                        {
-                                         //tabBarComponent: TabBar,
+                                         tabBarComponent: TabBar,
                                          tabBarPosition: 'bottom',
                                          animationEnabled: true,
                                          tabBarOptions: {
@@ -270,9 +276,11 @@ const LoginNavigator = StackNavigator({
                                        })
                                      },
                                      //homepage : {screen: myHome},
-                                     firstAdd: {screen:ExperienceNavigator},
+                                     //add: {screen:ExperienceNavigator},
+
                                      forgotPassword: {screen: forgotPassword},
                                      register: { screen:RegisterForm},
+                                     add: {screen:ExperienceNavigator},
                                      //experienceCart:{screen: ExperienceCart},
                                      CityScreen:  {screen: CityScreen},
                                      FiltersScreen:  {screen: FiltersScreen},
@@ -300,7 +308,7 @@ const LoginNavigator = StackNavigator({
                 {
                   return(
                     <Provider store={this.state.store}>
-                      <MainNavigatorIOS/>
+                      <MainNavigatorIOS />
                     </Provider>
                   );
                 }else

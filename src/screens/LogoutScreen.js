@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, Image ,StyleSheet, Dimensions,View,Platform,Keyboard,TouchableOpacity} from 'react-native';
+import { AppRegistry, Text,Alert, Image ,StyleSheet, Dimensions,View,Platform,Keyboard,TouchableOpacity} from 'react-native';
 import { Container, Content,Drawer,Icon,Button,Spinner,Card } from 'native-base';
 import {connect}  from 'react-redux';
 import {AsyncStorage} from 'react-native';
@@ -24,11 +24,19 @@ class Logout extends Component {
   } // END EDIT
 
 
-
   static navigationOptions = ({navigation}) => ({
     header: null,
     tabBarVisible: true,
-
+    tabBarOnPress: (scene, jumpToIndex) => {
+        return Alert.alert(   // Shows up the alert without redirecting anywhere
+            'Confirmation required'
+            ,'Do you really want to logout?'
+            ,[
+              {text: 'Accept', onPress: () => { navigation.dispatch(NavigationActions.navigate({ routeName: 'login' }))}},
+              {text: 'Cancel'}
+             ]
+        );
+    },
     tabBarLabel:'Logout',
     tabBarIcon: ({ tintColor }) => (
       <Icon name="ios-exit" style={{

@@ -33,7 +33,7 @@ const cards = [
 
 */
 
-let flagFetchCity = false;
+
 
 class HomeBody extends Component {
 
@@ -41,7 +41,7 @@ class HomeBody extends Component {
   //Il metodo componentDidMount viene eseguito una volta sola per tutto il tempo di esecuzione ed è invocato all'apertura della pagina (quindi ritornando inedietro da una pagina successiva a questa pagina, la funzione non viene invocata nuovamente)
   async componentDidMount(){
 
-     if(flagFetchCity == false){
+
        //Estrazione delle città da firebase . Snapshot è l'array di oggetti contententi i dettagli di ogni città
        this.props.actions.cityFetchStart();
        firebaseApp.database().ref(`/city`).once('value').
@@ -50,8 +50,7 @@ class HomeBody extends Component {
 
 
 
-       flagFetchCity= true;
-     }
+
 
   }
 
@@ -96,9 +95,9 @@ class HomeBody extends Component {
       return(
         <View>
           <LinearGradient  colors={['#56CCF2','#2F80ED']}    style={{ height:'100%' , width: '100%',flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center'}} >
-                <Text style= {{ fontSize: 18, fontWeight: 'bold', color: '#fafad2',  top: 5 }} > JUST A MOMENT... </Text>
-                   <Bubbles size={10} color="#FFF" />
-                <Text style= {{ fontSize: 16, fontWeight: 'bold', color: '#fafad2',  bottom: 5 }}>  LOADING CITY </Text>
+                <Text style= {{ fontSize: 18, fontWeight: 'bold', color: '#fafad2',  top: 5, backgroundColor:'transparent' }} > JUST A MOMENT... </Text>
+                   <Bubbles size={10} color="#FFF" style={{backgroundColor:'transparent'}}/>
+                <Text style= {{ fontSize: 16, fontWeight: 'bold', color: '#fafad2',  bottom: 5,backgroundColor:'transparent' }}>  LOADING CITY </Text>
             </LinearGradient>
         </View>
 

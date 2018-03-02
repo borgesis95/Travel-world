@@ -37,6 +37,7 @@ const insertIntoCartDatabase =(uid,typexp,name,date,activityKey,advertiserKey,di
      if((exists === null))
       {
         callbackDatabase(uid,typexp,name,date,advertiserKey,activityKey,dispatch,navigateTo,number,currentUser);
+        auto_sendNotification(uid);
 
 
       }// end if
@@ -88,5 +89,30 @@ const callbackDatabase = (uid,typexp,name,date,advertiserKey,activityKey,dispatc
     alert("Aggiunto nel carrello");
 
   }); // end then
+
+}
+
+const auto_sendNotification =(uid) =>{
+
+  
+  ref= firebase.database().ref(`/TokenUtentiPush/${uid}`)
+  ref.once('value',function(snapshot) {
+        snapshot.forEach(function(data){
+          console.log("TOKEN",data.val().expoToken);
+          return fetch('https://exp.host/--/api/v2/push/send', {
+              body: JSON.stringify({
+                to: data.val().expoToken,
+                title: 'Aggiunto nel carrello',
+                body: 'complimenti,Hai aggiunto una attività!',
+                sound:"default",
+              }),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              method: 'POST',
+        });
+
+        }) // forEach
+  })
 
 }

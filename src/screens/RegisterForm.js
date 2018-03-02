@@ -35,12 +35,20 @@ render()
 {
   return (
     <Container>
+
       <Content style={{ flex:2 }} contentContainerStyle={{ flex: 1 }} >
         <LinearGradient
                  colors={['#2F80ED','#2F80ED']}
                  style={{ height:'100%'}}
         >
-        <Row style={styles.rowone}/>
+
+        <Row style={styles.rowone}>
+          <Col>
+            <Text style={{fontWeight:'bold',fontSize:40,color:'white',justifyContent:'center',alignSelf:'center'}}> Sign up </Text>
+            <Text  style={{fontSize:12,color:'white',justifyContent:'center',alignSelf:'center'}}> Just input email and password </Text>
+          </Col>
+
+        </Row>
         <Col style={styles.coltwo}>
           <Form>
             <Item floatingLabel style={styles.form}>
@@ -86,7 +94,7 @@ const styles = StyleSheet.create({
 
   rowone:
   {
-     //backgroundColor: '#635DB7',
+    //  backgroundColor: '#635DB7',
       flex:1,
       display:'flex',
       flexDirection:'row',
@@ -95,7 +103,7 @@ const styles = StyleSheet.create({
   },
    coltwo:
   {
-
+    
     flex:2,
     display:'flex',
     flexDirection:'column',
