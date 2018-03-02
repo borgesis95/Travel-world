@@ -105,12 +105,12 @@ class ExperienceCart extends Component{
             <Container style= {{ width: Dimensions.get('window').width , height: Dimensions.get('window').height}}>
 
                 <AppHeader navigate={navigate}/>
-
-                <Content>
                   <LinearGradient
                     colors={['#56CCF2','#2F80ED']}
-                    style={{ height:'100%'}}
+                    style={{flex:1 }}
                   >
+                <Content>
+
                     {
                       this.props.obj.map((item,index)=>
                       {
@@ -125,8 +125,9 @@ class ExperienceCart extends Component{
                         );
                       }) // end map
                     }
-                  </LinearGradient>
+
                 </Content>
+              </LinearGradient>
 
             </Container>
 
