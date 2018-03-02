@@ -271,11 +271,7 @@ UpdatePhotoURL(uid,downloadURL)
 
 
   picker = () =>{
-    var BUTTONS = [
-      { text: "Camera", icon: "md-camera", iconColor: "#000000cf" },
-      { text: "Gallery", icon: "md-images", iconColor: "#2c8ef4" },
-      { text: "Cancel", icon: "close", iconColor: "#ca333d" }
-    ];
+    var BUTTONS = ["Camera","Gallery","Cancel"];
   var DESTRUCTIVE_INDEX = 2;
   var CANCEL_INDEX = 2;
   if ( this.actionSheet !== null )
