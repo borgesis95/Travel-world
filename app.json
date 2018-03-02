@@ -3,7 +3,7 @@
     "androidStatusBar": {
       "backgroundColor": "#000000"
     },
-    "name": "login-react",
+    "name": "travel-world",
     "description": "An empty new project",
     "slug": "login-react",
     "privacy": "public",
@@ -11,13 +11,18 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
-    "icon": "./assets/icons/app-icon.png",
+    "icon": "./assets/logo.png",
     "loading": {
-      "icon": "./assets/icons/loading-icon.png",
+      "icon": "./assets/logo.png",
       "hideExponentText": false
     },
     "packagerOpts": {
       "assetExts": ["ttf", "mp4"]
+    },
+    "splash": {
+      "image": "./assets/Logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true
