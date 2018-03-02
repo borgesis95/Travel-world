@@ -47,20 +47,12 @@ return (
   >
   <Container>
       <Row  style={styles.firstRow}>
-<<<<<<< HEAD
-        <Image
-          style={{width:180,height:180,marginTop:30,borderRadius:90}}
-          source={require('../../assets/logo.png')}
-          >
-        </Image>
-=======
         <View elevation={8} style={{width:180,height:180,marginTop:30, borderRadius:100,backgroundColor:'white',shadowColor: 'black',shadowOffset: { width: 0, height: 3 },shadowRadius: 5,shadowOpacity: 1.0,}}>
           <Image
             style={{width:180,height:180, borderRadius:100}}
             source={require('../../assets/logo.png')}
           />
         </View>
->>>>>>> bc8c38b311ccf27c56d97878e9ce16ea1067528e
       </Row>
       <Col style={styles.secondColumn}>
         <Form style={{right:5,}}>
