@@ -88,7 +88,7 @@ export const AddActions =  (uid,names,date,type,members,address,number,city,cap,
      var temp=dateConvert.split("-");
      Dates = temp[1] + "/" + temp[2] + "/" + temp[0];
     */
-    alert(experienceDescription);
+    
      Dates = convertUsToEuropeDate(Dates);
 
     firebase.database().ref(`/cityexperience`).push({
