@@ -9,7 +9,11 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 
 export default class  SecondPage extends Component {
   static navigationOptions = {
-    header: null
+    header: null,
+    tabBarLabel:'Add',
+    tabBarIcon: ({ tintColor }) => (
+      <Icon name="ios-add-circle" style={{fontSize:26,color: tintColor }}/>
+    )
   };
 
       constructor(props)
@@ -74,7 +78,7 @@ export default class  SecondPage extends Component {
                </TouchableOpacity>
               </Row>
 
-                
+
                 </LinearGradient>
                 </Container>
         );
@@ -100,7 +104,8 @@ const styles = StyleSheet.create({
     label:
     {
         fontWeight:'bold',
-        color:'transparent',
+        color:'white',
+        backgroundColor:'transparent',
         fontSize:20,
     },
     button:

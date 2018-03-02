@@ -9,10 +9,13 @@ import AppFooter from './appFooter.js';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
  class  ThirdPage extends Component {
-    static navigationOptions = {
-      header:null,
-        // Note: By default the icon is only shown on iOS. Search the showIcon option below.
-      };
+   static navigationOptions = {
+     header: null,
+     tabBarLabel:'Add',
+     tabBarIcon: ({ tintColor }) => (
+       <Icon name="ios-add-circle" style={{fontSize:26,color: tintColor }}/>
+     )
+   };
 
   constructor(props)
   {
@@ -36,7 +39,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
     cityName = city.toLowerCase();
     if(cityName=='catania'||cityName=='milano'||cityName=='roma')
     {
-      alert("funziona");
+
       this.setState({city:cityName});
     }
   }
@@ -57,7 +60,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
                   style={{ height:'100%'}}
                 >
                   <Grid>
-                    <Row style={{height:100}}>
+                    <Row style={{flex:0.2}}>
                       <Form style={styles.form}>
                         <Item  style={{width:'80%'}}
                         >
@@ -71,7 +74,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
                         </Item>
                       </Form>
                     </Row>
-                    <Row style={{height:80}}>
+                    <Row style={{flex:0.2}}>
                       <Form style={styles.secondForm}>
 
                         <Item  style={{width:'60%'}}
@@ -121,25 +124,27 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
                       </Form>
 
                     </Row>
+                    <Row style={{flex:0.5,justifyContent:'center',alignItems:'center'}}>
+                      <Button
+                        onPress={(screen)=>this.checkAndSend(
+                             state.params.name,
+                             state.params.date,
+                             state.params.type,
+                             this.state.members,
+                             this.state.streetName,
+                             this.state.number,
+                             this.state.city,
+                             this.state.zipCode,
+                             navigate,
+                             state.params.experienceDescription,
+                          )}
+                        style={styles.button}>
+                          <Text style={styles.text}> SUBMIT </Text>
+                      </Button>
+                    </Row>
                   </Grid>
-                  <Button
-                    onPress={(screen)=>this.checkAndSend(
 
-                         state.params.name,
-                         state.params.date,
-                         state.params.type,
-                         this.state.members,
-                         this.state.streetName,
-                         this.state.number,
-                         this.state.city,
-                         this.state.zipCode,
-                         navigate,
-                         state.params.experienceDescription,
-                      )}
-                    style={styles.button}>
-                      <Text style={styles.text}> SUBMIT </Text>
-                  </Button>
-                    
+
                 </LinearGradient>
             </Container>
           </Content>
@@ -178,14 +183,16 @@ const styles =StyleSheet.create({
   {
     fontSize:20,
     alignSelf:'center',
-    color:'white',
+    color:'black',
   },
 
   button:
   {
+    alignSelf:'center',
+    backgroundColor:'#feda4b',
     justifyContent:'center',
     flexDirection:'row',
-    width:'100%',
+    width:'90%',
 
   }
 })
