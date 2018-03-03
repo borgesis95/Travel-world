@@ -28,7 +28,7 @@ const appReducer = combineReducers({
   ActiveTypeExperience : ActiveTypeExperienceReducer,
   ProfileUpdate: ProfileUpdateReducer,
   ProfileFetch: ProfileFetchReducer,
-  PhotoUpdate:  PhotoUpdateReducer,
+  //PhotoUpdate:  PhotoUpdateReducer,
   ActivityCart: ActivityCartReducer ,
   CurrentScreen: CurrentScreenReducer,
 

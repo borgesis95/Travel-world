@@ -1,6 +1,6 @@
 //DA CANCELLARE
 
-
+/*
 const initialState={
     error:'',
     loading:true,
@@ -38,3 +38,4 @@ export default (state = initialState, action ) => {
     default: return state;
   }
 }
+*/
