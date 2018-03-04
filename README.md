@@ -6,7 +6,9 @@
 
 # TRAVEL-WORLD 
 
-<img src=https://github.com/borgesis95/Travel-world/blob/master/assets/logo.png width=300 height=300/>
+   <img src=https://github.com/borgesis95/Travel-world/blob/master/assets/logo.png width=300 height=300/>             <img src=https://github.com/borgesis95/Travel-world/blob/master/assets/expo.png width=350 height=210/>
+
+
 
 
 ## Introduzione : 
